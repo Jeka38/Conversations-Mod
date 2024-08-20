@@ -15,7 +15,6 @@
     <string name="action_delete_contact">Delete from roster</string>
     <string name="action_block_contact">Block contact</string>
     <string name="action_unblock_contact">Unblock contact</string>
-    <string name="user">User</string>
     <string name="action_block_domain">Block domain</string>
     <string name="action_unblock_domain">Unblock domain</string>
     <string name="action_block_participant">Block participant</string>
@@ -863,6 +862,7 @@
     <string name="too_many_attempts">Too many attempts</string>
     <string name="the_app_is_out_of_date">You are using an out of date version of this app.</string>
     <string name="update">Update</string>
+    <string name="user">user</string>
     <string name="logged_in_with_another_device">This phone number is currently logged in with another device.</string>
     <string name="enter_your_name_instructions">Please enter your name to let people, who don’t have you in their address books, know who you are.</string>
     <string name="your_name">Your name</string>
