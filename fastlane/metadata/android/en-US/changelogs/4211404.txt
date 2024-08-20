@@ -1,0 +1,13 @@
+* Add Cheogram mention on about screen
+* Fix save to downloads menu item visibility
+* Update Russian and Ukrainian localizations
+* Update caps node field
+* Notifications throttling setting for all conversations
+* Fix gestures handling conflict in commands
+* Support navigation via nav bar
+* Per conversation custom backgrounds
+* Use original file name in chat attachements
+* Support avatars shape customization
+* Medium font for unread conversation title
+* New settings screen
+* Show MUC subject as a pinned message

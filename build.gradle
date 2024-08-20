@@ -1,0 +1,227 @@
+// Top-level build file where you can add configuration options common to all
+// sub-projects/modules.
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url "https://www.jitpack.io" }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.2.0-rc03'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.21"
+    }
+}
+
+apply plugin: 'com.android.application'
+apply plugin: 'org.jetbrains.kotlin.android'
+
+repositories {
+    google()
+    mavenCentral()
+    maven { url='https://jitpack.io'}
+}
+
+configurations {
+    freeImplementation
+    conversationsFreeImplementation
+}
+
+dependencies {
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3'
+
+    implementation 'androidx.viewpager:viewpager:1.0.0'
+
+    implementation 'com.github.open-keychain.open-keychain:openpgp-api:v5.7.1'
+    implementation("com.github.CanHub:Android-Image-Cropper:2.2.0")
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.exifinterface:exifinterface:1.3.6'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+    implementation 'com.google.android.material:material:1.10.0'
+
+    implementation "androidx.emoji2:emoji2:1.4.0"
+    freeImplementation "androidx.emoji2:emoji2-bundled:1.4.0"
+
+    implementation 'org.bouncycastle:bcmail-jdk15on:1.64'
+    //zxing stopped supporting Java 7 so we have to stick with 3.3.3
+    //https://github.com/zxing/zxing/issues/1170
+    implementation 'com.google.zxing:core:3.3.3'
+    implementation 'de.measite.minidns:minidns-hla:0.2.4'
+    implementation 'me.leolin:ShortcutBadger:1.1.22@aar'
+    implementation 'org.whispersystems:signal-protocol-java:2.6.2'
+    implementation "com.wefika:flowlayout:0.4.1"
+    //noinspection GradleDependency
+    implementation('com.github.natario1:Transcoder:v0.9.1') {
+        exclude group: 'com.otaliastudios.opengl', module: 'egloo'
+    }
+    implementation 'com.github.natario1:Egloo:v0.4.0'
+
+    implementation 'org.jxmpp:jxmpp-jid:1.0.3'
+    implementation 'org.jxmpp:jxmpp-stringprep-libidn:1.0.3'
+    implementation 'org.osmdroid:osmdroid-android:6.1.11'
+    implementation 'org.hsluv:hsluv:0.2'
+    implementation 'org.conscrypt:conscrypt-android:2.5.2'
+    implementation 'me.drakeet.support:toastcompat:1.1.0'
+    implementation "com.leinardi.android:speed-dial:3.2.0"
+
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
+    implementation "com.squareup.okhttp3:okhttp:4.11.0"
+
+    implementation 'com.google.guava:guava:32.1.3-android'
+    implementation 'io.michaelrocks:libphonenumber-android:8.13.17'
+    implementation 'im.conversations.webrtc:webrtc-android:119.0.0'
+
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation "androidx.recyclerview:recyclerview:1.2.1"
+    implementation 'com.github.bumptech.glide:glide:4.15.1'
+    // https://mvnrepository.com/artifact/info.androidhive/imagefilters
+    implementation 'com.github.zomato:androidphotofilters:1.0.2'
+    implementation 'com.github.chrisbanes:PhotoView:2.3.0'
+
+    //implementation 'com.splitwise:tokenautocomplete:3.0.2'
+
+    implementation 'com.github.singpolyma:TokenAutoComplete:bfa93780e0'
+
+    implementation 'com.github.kizitonwose.colorpreference:support:1.1.0'
+    implementation 'com.caverock:androidsvg-aar:1.4'
+    implementation 'com.github.singpolyma:Better-Link-Movement-Method:4df081e1e4'
+
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:3.0-alpha-1'
+}
+
+ext {
+    preDexEnabled = System.getProperty("pre-dex", "true")
+    abiCodes = ['armeabi-v7a': 1, 'x86': 2, 'x86_64': 3, 'arm64-v8a': 4]
+}
+
+android {
+    namespace 'eu.siacs.conversations'
+    compileSdk 34
+
+    defaultConfig {
+        minSdkVersion 24
+        targetSdkVersion 34
+        versionCode 42115
+        versionName "2.3.1"
+        archivesBaseName += "-$versionName"
+        applicationId "eu.siacs.conversations.classic_mod"
+        resValue "string", "applicationId", applicationId
+        def appName = "Conversations Classic Mod"
+        resValue "string", "app_name", appName
+        buildConfigField "String", "APP_NAME", "\"$appName\""
+    }
+
+    splits {
+        abi {
+            universalApk true
+            enable true
+            reset()
+            //noinspection ChromeOsAbiSupport
+            include project.ext.abiCodes.keySet() as String[]
+        }
+    }
+
+    configurations {
+        implementation.exclude group: 'org.jetbrains' , module:'annotations'
+    }
+
+    dataBinding {
+        enabled true
+    }
+
+    compileOptions {
+        coreLibraryDesugaringEnabled true
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    flavorDimensions += "mode"
+    flavorDimensions += "distribution"
+
+    productFlavors {
+        conversations {
+            dimension "mode"
+        }
+
+        free {
+            dimension "distribution"
+            //versionNameSuffix "+free"
+        }
+    }
+
+    sourceSets {
+        conversationsFree {
+            java {
+                srcDir 'src/conversationsFree/java'
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            shrinkResources true
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            shrinkResources true
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+
+    if (new File("signing.properties").exists()) {
+        Properties props = new Properties()
+        props.load(new FileInputStream(file("signing.properties")))
+
+        signingConfigs {
+            release {
+                storeFile file(props['keystore'])
+                storePassword props['keystore.password']
+                keyAlias props['keystore.alias']
+                keyPassword props['keystore.password']
+            }
+        }
+        buildTypes.release.signingConfig = signingConfigs.release
+    }
+
+
+    subprojects {
+
+        afterEvaluate {
+            if (getPlugins().hasPlugin('android') ||
+                    getPlugins().hasPlugin('android-library')) {
+
+                configure(android.lintOptions) {
+                    disable 'AndroidGradlePluginVersion', 'MissingTranslation'
+                }
+            }
+
+        }
+    }
+    packagingOptions {
+        resources {
+            excludes += ['META-INF/BCKEY.DSA', 'META-INF/BCKEY.SF']
+        }
+    }
+    lint {
+        disable 'MissingTranslation', 'InvalidPackage', 'AppCompatResource'
+    }
+    buildFeatures {
+        buildConfig true
+    }
+
+    android.applicationVariants.configureEach { variant ->
+        variant.outputs.each { output ->
+            def baseAbiVersionCode = project.ext.abiCodes.get(output.getFilter(com.android.build.OutputFile.ABI))
+            if (baseAbiVersionCode != null) {
+                output.versionCodeOverride = (100 * project.android.defaultConfig.versionCode) + baseAbiVersionCode
+            } else {
+                output.versionCodeOverride = 100 * project.android.defaultConfig.versionCode
+            }
+        }
+
+    }
+}

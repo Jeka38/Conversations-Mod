@@ -1,0 +1,4 @@
+* Clean code and optimize imports
+* Render reply message author name on the top of replied text
+* Fix conversation position handling while grouping enabled
+* Properly show contact name in MUC

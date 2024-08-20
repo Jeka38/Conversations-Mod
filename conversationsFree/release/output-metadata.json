@@ -1,0 +1,72 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "eu.siacs.conversations.classic_mod",
+  "variantName": "conversationsFreeRelease",
+  "elements": [
+    {
+      "type": "UNIVERSAL",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 4211500,
+      "versionName": "2.3.1",
+      "outputFile": "Conversations-2.3.1-conversations-free-universal-release.apk"
+    },
+    {
+      "type": "ONE_OF_MANY",
+      "filters": [
+        {
+          "filterType": "ABI",
+          "value": "x86_64"
+        }
+      ],
+      "attributes": [],
+      "versionCode": 4211503,
+      "versionName": "2.3.1",
+      "outputFile": "Conversations-2.3.1-conversations-free-x86_64-release.apk"
+    },
+    {
+      "type": "ONE_OF_MANY",
+      "filters": [
+        {
+          "filterType": "ABI",
+          "value": "armeabi-v7a"
+        }
+      ],
+      "attributes": [],
+      "versionCode": 4211501,
+      "versionName": "2.3.1",
+      "outputFile": "Conversations-2.3.1-conversations-free-armeabi-v7a-release.apk"
+    },
+    {
+      "type": "ONE_OF_MANY",
+      "filters": [
+        {
+          "filterType": "ABI",
+          "value": "x86"
+        }
+      ],
+      "attributes": [],
+      "versionCode": 4211502,
+      "versionName": "2.3.1",
+      "outputFile": "Conversations-2.3.1-conversations-free-x86-release.apk"
+    },
+    {
+      "type": "ONE_OF_MANY",
+      "filters": [
+        {
+          "filterType": "ABI",
+          "value": "arm64-v8a"
+        }
+      ],
+      "attributes": [],
+      "versionCode": 4211504,
+      "versionName": "2.3.1",
+      "outputFile": "Conversations-2.3.1-conversations-free-arm64-v8a-release.apk"
+    }
+  ],
+  "elementType": "File"
+}

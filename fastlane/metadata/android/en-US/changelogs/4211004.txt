@@ -1,0 +1,31 @@
+The app is renamed to Conversations Classic.
+
+* Numerous small fixes
+* Info about PM on MUC details screen
+* Temporary disable domain JID sanity check
+* Support 'Save to downloads' action for attachments
+* Reactions
+* New UI category in expert settings
+* Better self contact handling
+* Split roster by different accounts
+* Group conversation by tags
+* Save expanded items in persistent storage
+* Fix not working accent color
+* Support conversations grouping on ShareWith screen
+* LED color changed to blue
+* Show real reply text instead of fallback
+* New launcher icons
+* Fix multiline reply quote
+* Fix swipe to reply handling
+* Add leakCanary
+* Log reason for SM resume failure
+* Fix notifications fallback color
+* Get rid of command blicks
+* Add checkbox for auto downloading all files when connected to Wi-Fi
+* Improve scroll to bottom button behavior
+* Add notification sound throttling setting, per each contact separately
+* Get rid of upstream bug reports system
+* Add contact JID copy button
+* Move restore backup button from context menu on welcome screen
+* Improve replies on file or image messages
+* Fix reactions handling in case of missing reply stanza

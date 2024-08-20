@@ -1,0 +1,20 @@
+Upstream:
+* Bump Target SDK to 33 again
+* Fix issues on servers supporting SASL2 w/o inline Stream Management
+* Fix 'q' falsely being recognized as cyrillic
+
+Fork:
+* Implement multi selection for messages
+* Add embedded photo editor
+* Improve replies
+* Prevent vertical scrolling during swipe
+* Separate app id from upstream
+* Disable OMEMO by default
+* Add dialpad
+* Add gateway interaction
+* Add tags navigation
+* Add self contact
+* Don't hide indicator on merged messages
+* Add tags editor
+* Add logs sender
+* Add a menu on long tap on conversations

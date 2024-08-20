@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:id="@+id/non_text_reply_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/reply_divider"
+        android:paddingStart="11.5sp"
+        android:visibility="gone">
+
+        <FrameLayout
+            android:id="@+id/icons_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_centerVertical="true">
+
+            <ImageView
+                android:id="@+id/context_preview_image"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:scaleType="centerCrop"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:id="@+id/context_preview_doc"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="?attr/ic_attach_document"
+                android:layout_toEndOf="@id/divider"
+                android:layout_below="@id/reply_body"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:id="@+id/context_preview_audio"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="?attr/ic_attach_record"
+                android:layout_toEndOf="@id/divider"
+                android:layout_below="@id/reply_body"
+                android:visibility="gone"/>
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/context_preview_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="-2dp"
+            android:layout_toEndOf="@id/icons_container"
+            android:textAppearance="@style/TextAppearance.Conversations.Body1"
+            android:fontFamily="sans-serif-medium" />
+
+        <TextView
+            android:id="@+id/reply_body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:longClickable="false"
+            android:textAppearance="@style/TextAppearance.Conversations.Body1"
+            android:layout_toEndOf="@id/icons_container"
+            android:layout_below="@id/context_preview_author"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/message_body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autoLink="web"
+        android:longClickable="false"
+        android:textAppearance="@style/TextAppearance.Conversations.Body1"/>
+
+    <ImageView
+        android:id="@+id/message_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="8dp"
+        android:adjustViewBounds="true"
+        android:background="@color/black87"
+        android:longClickable="true"
+        android:scaleType="centerCrop"/>
+
+    <Button
+        android:id="@+id/download_button"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:longClickable="true"
+        android:visibility="gone"/>
+
+    <RelativeLayout
+        android:id="@+id/audio_player"
+        android:layout_width="@dimen/audio_player_width"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        >
+
+        <ImageButton
+            android:id="@+id/play_pause"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:alpha="?attr/icon_alpha"
+            android:background="?android:selectableItemBackground"/>
+
+        <TextView
+            android:id="@+id/runtime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:paddingBottom="16dp"
+            android:paddingRight="16dp"
+            android:textAppearance="@style/TextAppearance.Conversations.Caption"/>
+
+        <SeekBar
+            android:id="@+id/progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/runtime"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/play_pause"
+            android:progress="100"/>
+    </RelativeLayout>
+
+</merge>

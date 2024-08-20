@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:clipToPadding="false"
+                android:paddingBottom="4dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="4dp">
+
+    <eu.siacs.conversations.ui.widget.HighlighterView
+        android:id="@+id/highlighter"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignBottom="@id/message_box"
+        android:background="?color_message_selection"
+        android:layout_marginLeft="-8dp"
+        android:layout_marginRight="-8dp"
+        android:alpha="0"
+        android:visibility="invisible"/>
+
+    <eu.siacs.conversations.ui.widget.AvatarView
+        android:id="@+id/message_photo"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:translationY="-2dp"
+        android:scaleType="fitXY" />
+
+    <LinearLayout
+        android:id="@+id/message_box"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/message_photo"
+        android:background="@drawable/message_bubble_received"
+        android:minHeight="53dp"
+        android:layout_marginTop="-2dp"
+        android:layout_marginRight="-4dp"
+        android:longClickable="true">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingTop="2dp"
+            android:paddingStart="2dp"
+            android:paddingEnd="2dp">
+
+
+            <TextView
+                android:id="@+id/username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:text="@string/user"
+                android:textAppearance="@style/TextAppearance.Conversations.Caption" />
+
+
+            <include
+                android:id="@+id/message_content"
+                layout="@layout/message_content"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/message_encryption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:layout_marginRight="4sp"
+                    android:textAppearance="@style/TextAppearance.Conversations.Caption.OnDark.Bold"/>
+
+                <ImageView
+                    android:id="@+id/security_indicator"
+                    android:layout_width="?attr/TextSizeCaption"
+                    android:layout_height="?attr/TextSizeCaption"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="4sp"
+                    android:alpha="0.70"
+                    android:gravity="center_vertical"
+                    android:src="@drawable/ic_lock_white_18dp" />
+
+                <ImageView
+                    android:id="@+id/edit_indicator"
+                    android:layout_width="?attr/TextSizeCaption"
+                    android:layout_height="?attr/TextSizeCaption"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="4sp"
+                    android:alpha="0.70"
+                    android:gravity="center_vertical"
+                    android:src="@drawable/ic_mode_edit_white_18dp" />
+
+                <TextView
+                    android:id="@+id/message_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:text="@string/sending"
+                    android:accessibilityTraversalAfter="@id/message_photo"
+                    android:accessibilityTraversalBefore="@id/message_content"
+                    android:textAppearance="@style/TextAppearance.Conversations.Caption"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/clicks_interceptor"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignBottom="@id/message_box"
+        android:visibility="gone"/>
+
+</RelativeLayout>

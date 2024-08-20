@@ -1,0 +1,2 @@
+* Get rid of outdated kernel version calculation code
+* Fix contact long click crash

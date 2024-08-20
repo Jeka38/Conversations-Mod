@@ -1,0 +1,32 @@
+Upstream:
+* Disable opening backup files (.ceb) from file manager
+* Introduce new backup file format
+* support per conversation notification settings
+* Bump libwebrtc dependency to M117 and bump libvpx
+* Support per app language settings
+* Support Private DNS (DNS over TLS)
+* Support themed launcher icon
+* Fix rare permission issue when sharing files on Android 11+
+* Easier access to 'Show QR code'
+* Support PEP Native Bookmarks
+* Add support for SDP Offer / Answer Model (Used by SIP gateways)
+* Raise target API to Android 14
+
+Fork:
+* Fix numerous crashes
+* Add tags for MUC
+* MUC PM in the separate conversation
+* Improve message selection mode title
+* Append author and day for multi select copy value
+* Bump MAM limits
+* Get rid of Soprani.ca bookmark
+* Support primary color picker
+* Group contacts by tag
+* Commands tab in conversation
+* Make replies clickable
+* Fix expandable contact clicks handling
+* Note to self as separate context menu item
+* Fix colors of reply text and conversation swipe background
+* Better messages highlighting
+* Show replies not starting with >
+* Allow to merge private messages
