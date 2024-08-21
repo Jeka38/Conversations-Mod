@@ -24,6 +24,7 @@ import android.content.Intent;
 import android.content.IntentSender.SendIntentException;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -3707,6 +3708,7 @@ public class ConversationFragment extends XmppFragment
         } else {
             action = SendButtonTool.getAction(getActivity(), c, text);
         }
+
         if (c.getAccount().getStatus() == Account.State.ONLINE) {
             if (activity != null
                     && activity.xmppConnectionService != null
@@ -3723,20 +3725,21 @@ public class ConversationFragment extends XmppFragment
         } else {
             status = Presence.Status.OFFLINE;
         }
+
         this.binding.textSendButton.setTag(action);
         final Activity activity = getActivity();
         if (activity != null) {
             int imageResource = SendButtonTool.getSendButtonImageResource(activity, action, status);
-            boolean shouldBePrimary = SendButtonTool.shouldSendButtonBePrimary(action, status);
             Drawable image = AppCompatResources.getDrawable(getContext(), imageResource);
-            if (shouldBePrimary) {
-                image.setTint(getOrCalculatePrimaryColor());
-            }
 
+            // Remove any background or tint from the button
+            this.binding.textSendButton.setBackground(null); // Removes any background
+            this.binding.textSendButton.setBackgroundTintList(null); // Ensures no tint is applied
 
-            this.binding.textSendButton.setImageDrawable(image);
+            this.binding.textSendButton.setImageDrawable(image); // Set the button's image as usual
         }
     }
+
 
     protected void updateStatusMessages() {
         DateSeparator.addAll(this.messageList);

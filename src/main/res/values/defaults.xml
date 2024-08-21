@@ -46,6 +46,7 @@
     <string name="default_font_size">small</string>
     <bool name="use_share_location_plugin">false</bool>
     <bool name="accept_all_files_if_wifi">false</bool>
+    <bool name="use_colored_muc_names">true</bool>
     <bool name="start_searching">false</bool>
     <string name="video_compression">360</string>
     <string name="default_channel_discovery">JABBER_NETWORK</string>

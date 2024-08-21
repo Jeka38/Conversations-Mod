@@ -1,9 +1,14 @@
 package eu.siacs.conversations.utils;
 
 import android.content.Context;
+import android.graphics.Typeface;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
 import android.util.Pair;
 
 import androidx.annotation.ColorInt;
@@ -33,6 +38,7 @@ import eu.siacs.conversations.entities.Presence;
 import eu.siacs.conversations.entities.RtpSessionStatus;
 import eu.siacs.conversations.entities.Transferable;
 import eu.siacs.conversations.services.ExportBackupService;
+import eu.siacs.conversations.services.XmppConnectionService;
 import eu.siacs.conversations.ui.util.QuoteHelper;
 import eu.siacs.conversations.xmpp.Jid;
 
@@ -202,6 +208,16 @@ public class UIHelper {
         return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR)
                 && cal1.get(Calendar.DAY_OF_YEAR) == cal2
                 .get(Calendar.DAY_OF_YEAR);
+    }
+
+    public static SpannableString getColoredUsername(final XmppConnectionService service, final Message message) {
+        final SpannableString user;
+        user = SpannableString.valueOf(UIHelper.getMessageDisplayName(message));
+        user.setSpan(new StyleSpan(Typeface.BOLD), 0, user.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        if (service.colored_muc_names()) {
+            user.setSpan(new ForegroundColorSpan(message.getAvatarBackgroundColor()), 0, user.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+        return user;
     }
 
     public static String lastseen(Context context, boolean active, long time) {

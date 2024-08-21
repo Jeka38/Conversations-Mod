@@ -913,8 +913,11 @@
     <string name="no_users_hint_group_chat">This private group chat has no participants.</string>
     <string name="manage_permission">Manage privileges</string>
     <string name="search_participants">Search participants</string>
+    <string name="pref_use_colored_muc_names_summary">Colorize nicknames in group chats or channels like default avatar backgrounds.</string>
+    <string name="pref_use_colored_muc_names">Colorize nicknames</string>
     <string name="file_too_large">File too large</string>
     <string name="attach">Attach</string>
+    <string name="theme_color"></string>
     <string name="discover_channels">Discover channels</string>
     <string name="search_channels">Search channels</string>
     <string name="channel_discovery_opt_in_title">Possible privacy violation!</string>

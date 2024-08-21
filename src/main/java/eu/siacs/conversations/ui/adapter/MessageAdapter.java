@@ -82,6 +82,7 @@ import eu.siacs.conversations.utils.Emoticons;
 import eu.siacs.conversations.utils.GeoHelper;
 import eu.siacs.conversations.utils.MessageUtils;
 import eu.siacs.conversations.utils.StylingHelper;
+import eu.siacs.conversations.utils.ThemeHelper;
 import eu.siacs.conversations.utils.TimeFrameUtils;
 import eu.siacs.conversations.utils.UIHelper;
 import eu.siacs.conversations.xml.Element;
@@ -477,11 +478,19 @@ public class MessageAdapter extends ArrayAdapter<Message> implements DraggableLi
         if (message == null || viewHolder == null) {
             return;
         }
-        viewHolder.username.setText(UIHelper.getMessageDisplayName(message));
+        viewHolder.username.setText(UIHelper.getColoredUsername(activity.xmppConnectionService, message));
         if (mForceNames || true) {
             viewHolder.username.setVisibility(View.VISIBLE);
         } else {
             viewHolder.username.setVisibility(View.GONE);
+        }
+        boolean darkBackground = false;
+        if (activity.xmppConnectionService.colored_muc_names() && ThemeHelper.showColoredUsernameBackGround(activity, darkBackground)) {
+            viewHolder.username.setPadding(4, 2, 4, 2);
+            viewHolder.username.setBackground(ContextCompat.getDrawable(activity, R.drawable.duration_background));
+        } else {
+            viewHolder.username.setPadding(4, 2, 4, 2);
+            viewHolder.username.setBackground(null);
         }
     }
 

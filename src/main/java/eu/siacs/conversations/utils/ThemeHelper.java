@@ -150,6 +150,8 @@ public class ThemeHelper {
 		}
 	}
 
+
+
 	public static void fix(Snackbar snackbar) {
 		final Context context = snackbar.getContext();
 		TypedArray typedArray = context.obtainStyledAttributes(new int[]{R.attr.TextSizeBody1});
@@ -163,6 +165,26 @@ public class ThemeHelper {
 				action.setTextSize(TypedValue.COMPLEX_UNIT_PX, size);
 				action.setTextColor(ContextCompat.getColor(context, R.color.blue_a100));
 			}
+		}
+	}
+
+	public static boolean showColoredUsernameBackGround(Context context, boolean dark) {
+		final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+		final Resources resources = context.getResources();
+		final String themeColor = sharedPreferences.getString("theme_color", resources.getString(R.string.theme_color));
+		switch (themeColor) {
+			case "blue":
+				return dark ? false : false;
+			case "blabber":
+				return dark ? true : false;
+			case "orange":
+				return dark ? true : false;
+			case "grey":
+				return dark ? false : false;
+			case "pink":
+				return dark ? true : false;
+			default:
+				return dark ? true : false;
 		}
 	}
 }

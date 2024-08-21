@@ -117,6 +117,8 @@
     <string name="pref_attachments">Вложения</string>
     <string name="pref_notification_settings">Уведомление</string>
     <string name="pref_vibrate">Вибрация</string>
+    <string name="pref_use_colored_muc_names_summary">Раскрасить ники в групповых чатах или каналах как фон аватара по умолчанию.</string>
+    <string name="pref_use_colored_muc_names">Раскрасить ники</string>
     <string name="pref_vibrate_summary">Вибрировать, когда приходят новые сообщения</string>
     <string name="pref_led">Светодиодное уведомление</string>
     <string name="pref_led_summary">Мерцание индикатора при получении нового сообщения</string>

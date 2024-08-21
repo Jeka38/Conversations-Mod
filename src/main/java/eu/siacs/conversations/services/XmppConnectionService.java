@@ -551,6 +551,10 @@ public class XmppConnectionService extends Service {
         });
     }
 
+    public boolean colored_muc_names() {
+        return getBooleanPreference("colored_muc_names", R.bool.use_colored_muc_names);
+    }
+
     public PgpEngine getPgpEngine() {
         if (!Config.supportOpenPgp()) {
             return null;
