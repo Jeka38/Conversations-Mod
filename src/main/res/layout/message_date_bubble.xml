@@ -18,6 +18,7 @@
 
         <TextView
             android:id="@+id/message_body"
+            android:textColor="#9FFFFFFF"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.Conversations.Body1.Secondary"
