@@ -1446,6 +1446,7 @@ public class ConversationFragment extends XmppFragment
         super.onCreateOptionsMenu(menu, menuInflater);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(
             final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -1459,7 +1460,17 @@ public class ConversationFragment extends XmppFragment
         binding.textinput.setOnEditorActionListener(mEditorActionListener);
         binding.textinput.setRichContentListener(new String[] {"image/*"}, mEditorContentListener);
 
+        // Слушатель для обычного нажатия
         binding.textSendButton.setOnClickListener(this.mSendButtonListener);
+
+        // Добавление слушателя для долгого нажатия
+        binding.textSendButton.setOnLongClickListener(v -> {
+            String currentText = binding.textinput.getText().toString();
+            binding.textinput.setText(Message.ME_COMMAND.length() + currentText);
+            binding.textinput.setSelection(binding.textinput.getText().length());
+            return true;
+        });
+
         binding.contextPreviewCancel.setOnClickListener((v) -> {
             setupReply(null);
         });
@@ -1537,6 +1548,7 @@ public class ConversationFragment extends XmppFragment
 
         return binding.getRoot();
     }
+
 
     @Override
     public void onDestroyView() {
