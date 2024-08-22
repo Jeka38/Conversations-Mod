@@ -57,9 +57,7 @@
     <attr name="message_bubble_received_monochrome" format="reference" />
     <attr name="message_bubble_sent" format="reference" />
     <attr name="message_bubble_received_green" format="reference" />
-    <attr name="message_bubble_received_monochrome_non_last" format="reference" />
-    <attr name="message_bubble_sent_non_last" format="reference" />
-    <attr name="message_bubble_received_green_non_last" format="reference" />
+
 
     <attr name="unread_count" format="reference|color" />
 
