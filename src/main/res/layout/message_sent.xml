@@ -36,16 +36,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignWithParentIfMissing="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_toStartOf="@+id/message_photo"
+        android:layout_marginTop="-2dp"
+        android:layout_marginLeft="-4dp"
         android:layout_toLeftOf="@+id/message_photo"
-        android:background="@drawable/message_bubble_sent"
+        android:background="?attr/message_bubble_sent"
         android:longClickable="true"
-        android:minHeight="48dp">
+        android:minHeight="53dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
