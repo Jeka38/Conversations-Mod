@@ -53,7 +53,7 @@
     <bool name="prevent_screenshots">false</bool>
     <string name="default_push_server">up.conversations.im</string>
     <string name="default_push_account">none</string>
-    <bool name="always_full_timestamps">false</bool>
+    <bool name="always_full_timestamps">true</bool>
     <bool name="skip_image_editor_screen">false</bool>
     <string name="avatar_shape">oval</string>
 </resources>
