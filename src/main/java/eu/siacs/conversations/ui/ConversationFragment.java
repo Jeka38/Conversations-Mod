@@ -836,17 +836,25 @@ public class ConversationFragment extends XmppFragment
         if (conversation == null) {
             return;
         }
+
         if (scrolledToBottom(listView) && !conversation.isInHistoryPart()) {
             lastMessageUuid = null;
             hideUnreadMessagesCount();
         } else {
             binding.scrollToBottomButton.setEnabled(true);
             binding.scrollToBottomButton.show();
+
             if (lastMessageUuid == null) {
                 lastMessageUuid = conversation.getLatestMessage().getUuid();
             }
-            if (conversation.getReceivedMessagesCountSinceUuid(lastMessageUuid) > 0) {
+
+            int unreadCount = conversation.getReceivedMessagesCountSinceUuid(lastMessageUuid);
+
+            if (unreadCount > 0) {
                 binding.unreadCountCustomView.setVisibility(View.VISIBLE);
+                binding.unreadCountCustomView.setUnreadCount(unreadCount);  // Устанавливаем количество непрочитанных сообщений
+            } else {
+                binding.unreadCountCustomView.setVisibility(View.GONE);
             }
         }
     }
