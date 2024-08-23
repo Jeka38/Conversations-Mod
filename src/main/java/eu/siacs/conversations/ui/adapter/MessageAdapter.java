@@ -1209,19 +1209,12 @@ public class MessageAdapter extends ArrayAdapter<Message> implements DraggableLi
             if (isInValidSession) {
                 int bubble;
                 if (!mUseGreenBackground) {
-                    if (mergeableWithNext) {
-                        bubble = activity.getThemeResource(R.attr.message_bubble_received_monochrome_non_last, R.drawable.message_bubble_received_white_non_last);
-                    } else {
-                        bubble = activity.getThemeResource(R.attr.message_bubble_received_monochrome, R.drawable.message_bubble_received_white);
-                    }
+                    bubble = activity.getThemeResource(R.attr.message_bubble_received_monochrome, R.drawable.message_bubble_received_white);
 
                     viewHolder.message_box.setBackgroundResource(bubble);
                 } else {
-                    if (mergeableWithNext) {
-                        bubble = activity.getThemeResource(R.attr.message_bubble_received_green_non_last, R.drawable.message_bubble_received_non_last);
-                    } else {
-                        bubble = activity.getThemeResource(R.attr.message_bubble_received_green, R.drawable.message_bubble_received);
-                    }
+                    bubble = activity.getThemeResource(R.attr.message_bubble_received_green, R.drawable.message_bubble_received);
+
 
                     Drawable bubbleDrawable = AppCompatResources.getDrawable(getContext(), bubble);
                     bubbleDrawable.setTint(getOrCalculatePrimaryColor());
@@ -1230,11 +1223,7 @@ public class MessageAdapter extends ArrayAdapter<Message> implements DraggableLi
 
                 viewHolder.encryption.setVisibility(View.GONE);
             } else {
-                if (mergeableWithNext) {
-                    viewHolder.message_box.setBackgroundResource(R.drawable.message_bubble_received_warning_non_last);
-                } else {
-                    viewHolder.message_box.setBackgroundResource(R.drawable.message_bubble_received_warning);
-                }
+                viewHolder.message_box.setBackgroundResource(R.drawable.message_bubble_received_warning);
                 viewHolder.encryption.setVisibility(View.VISIBLE);
                 if (omemoEncryption && !message.isTrusted()) {
                     viewHolder.encryption.setText(R.string.not_trusted);
@@ -1246,12 +1235,7 @@ public class MessageAdapter extends ArrayAdapter<Message> implements DraggableLi
 
         if (type == SENT) {
             int bubble;
-            if (mergeableWithNext) {
-                bubble = activity.getThemeResource(R.attr.message_bubble_sent_non_last, R.drawable.message_bubble_sent_non_last);
-            } else {
-                bubble = activity.getThemeResource(R.attr.message_bubble_sent, R.drawable.message_bubble_sent);
-            }
-
+            bubble = activity.getThemeResource(R.attr.message_bubble_sent, R.drawable.message_bubble_sent);
             viewHolder.message_box.setBackgroundResource(bubble);
         }
 
