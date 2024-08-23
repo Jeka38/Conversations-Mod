@@ -19,7 +19,7 @@
     <integer name="default_notification_throttling_period">-1</integer>
     <integer name="auto_accept_filesize">524288</integer>
     <string name="picture_compression">auto</string>
-    <bool name="use_green_background">true</bool>
+    <bool name="use_green_background">false</bool>
     <bool name="show_nav_bar">true</bool>
     <string name="quick_action">recent</string>
     <bool name="show_dynamic_tags">false</bool>
@@ -55,5 +55,5 @@
     <string name="default_push_account">none</string>
     <bool name="always_full_timestamps">false</bool>
     <bool name="skip_image_editor_screen">false</bool>
-    <string name="avatar_shape">square</string>
+    <string name="avatar_shape">oval</string>
 </resources>
