@@ -861,6 +861,7 @@
     <string name="create_public_channel">Создать публичный канал</string>
     <string name="create_dialog_channel_name">Название канала</string>
     <string name="xmpp_address">XMPP-адрес</string>
+    <string name="save_to_downloads">Сохранить в Загрузки</string>
     <string name="please_enter_name">Пожалуйста, предоставьте имя для канала</string>
     <string name="please_enter_xmpp_address">Пожалуйста, предоставьте XMPP-адрес</string>
     <string name="this_is_an_xmpp_address">Это XMPP-адрес. Пожалуйста, предоставьте имя.</string>
@@ -1065,12 +1066,14 @@
     <string name="pref_skip_image_editor_screen">Пропустить редактор изображений</string>
     <string name="pref_skip_image_editor_screen_summary">Не открывать автоматически экран редактора изображений для вложений отдельных изображений</string>
     <string name="pref_noisy_notifications_throttling">Настроить шумные уведомления</string>
+    <string name="pref_noisy_notifications_throttling_summary">Ограничить звук и вибрацию для уведомлений, полученных из одного разговора в течение короткого периода времени.</string>
     <string name="refresh_feature_discovery">Обновить обнаружение функций</string>
     <string name="note_to_self_conversation_title">Заметка для себя (%1$s)</string>
     <string name="muc_private_conversation_info_title">Частный разговор с:</string>
     <string name="message_selection_title">Выбран %1$d</string>
     <string name="contact_tag_general">Общие</string>
     <string name="contact_tag_with_total">%1$s (%2$d)</string>
+    <string name="retract_message">Отозвать собщение</string>
     <string name="retract_message_alert_title">Вы действительно хотите отозвать это сообщение?</string>
     <string name="chats">Чаты</string>
     <string name="accounts">Аккаунты</string>
