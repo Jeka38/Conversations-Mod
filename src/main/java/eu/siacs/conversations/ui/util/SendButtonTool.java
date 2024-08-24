@@ -173,32 +173,22 @@ public class SendButtonTool {
 					default:
 						return getThemeResource(activity, R.attr.ic_send_picture_offline, R.drawable.ic_send_picture_offline);
 				}
-		}
-		return getThemeResource(activity, R.attr.ic_send_text_offline, R.drawable.ic_send_text_offline);
-	}
-
-	public static boolean shouldSendButtonBePrimary(SendButtonAction action, Presence.Status status) {
-		switch (action) {
-			case TEXT:
-			case RECORD_VIDEO:
-			case TAKE_PHOTO:
-			case RECORD_VOICE:
-			case SEND_LOCATION:
-			case CANCEL:
-			case CHOOSE_PICTURE:
+			case CHOOSE_ATTACHMENT:
 				switch (status) {
 					case CHAT:
 					case ONLINE:
-						return true;
+						return R.drawable.ic_send_attachment_online;
 					case AWAY:
+						return R.drawable.ic_send_attachment_away;
 					case XA:
 					case DND:
+						return R.drawable.ic_send_attachment_dnd;
 					default:
-						return false;
+						return getThemeResource(activity, R.attr.ic_send_attachment_offline, R.drawable.ic_send_attachment_offline);
 				}
-		}
 
-		return false;
+		}
+		return getThemeResource(activity, R.attr.ic_send_text_offline, R.drawable.ic_send_text_offline);
 	}
 
 	private static int getThemeResource(Activity activity, int r_attr_name, int r_drawable_def) {

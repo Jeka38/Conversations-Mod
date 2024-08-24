@@ -29,6 +29,7 @@
 
 package eu.siacs.conversations.ui.util;
 
+import static eu.siacs.conversations.ui.ConversationFragment.ATTACHMENT_CHOICE;
 import static eu.siacs.conversations.ui.ConversationFragment.ATTACHMENT_CHOICE_CHOOSE_IMAGE;
 import static eu.siacs.conversations.ui.ConversationFragment.ATTACHMENT_CHOICE_LOCATION;
 import static eu.siacs.conversations.ui.ConversationFragment.ATTACHMENT_CHOICE_RECORD_VIDEO;
@@ -36,7 +37,7 @@ import static eu.siacs.conversations.ui.ConversationFragment.ATTACHMENT_CHOICE_R
 import static eu.siacs.conversations.ui.ConversationFragment.ATTACHMENT_CHOICE_TAKE_PHOTO;
 
 public enum SendButtonAction {
-	TEXT, TAKE_PHOTO, SEND_LOCATION, RECORD_VOICE, CANCEL, CHOOSE_PICTURE, RECORD_VIDEO;
+	TEXT, TAKE_PHOTO, SEND_LOCATION, RECORD_VOICE, CANCEL, CHOOSE_PICTURE, RECORD_VIDEO, CHOOSE_ATTACHMENT;
 
 	public static SendButtonAction valueOfOrDefault(final String setting) {
 		if (setting == null) {
@@ -61,6 +62,8 @@ public enum SendButtonAction {
 				return TAKE_PHOTO;
 			case ATTACHMENT_CHOICE_CHOOSE_IMAGE:
 				return CHOOSE_PICTURE;
+			case ATTACHMENT_CHOICE:
+				return CHOOSE_ATTACHMENT;
 			default:
 				throw new IllegalArgumentException("Not a known attachment choice");
 		}
@@ -78,6 +81,8 @@ public enum SendButtonAction {
 				return ATTACHMENT_CHOICE_CHOOSE_IMAGE;
 			case RECORD_VIDEO:
 				return ATTACHMENT_CHOICE_RECORD_VIDEO;
+			case CHOOSE_ATTACHMENT:
+				return ATTACHMENT_CHOICE;
 			default:
 				return 0;
 		}

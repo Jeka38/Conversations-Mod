@@ -182,6 +182,7 @@ public class ConversationFragment extends XmppFragment
     public static final int REQUEST_START_DOWNLOAD = 0x0210;
     public static final int REQUEST_ADD_EDITOR_CONTENT = 0x0211;
     public static final int REQUEST_COMMIT_ATTACHMENTS = 0x0212;
+    public static final int ATTACHMENT_CHOICE = 0x0300;
     public static final int REQUEST_START_AUDIO_CALL = 0x213;
     public static final int REQUEST_START_VIDEO_CALL = 0x214;
     public static final int ATTACHMENT_CHOICE_CHOOSE_IMAGE = 0x0301;
@@ -623,9 +624,20 @@ public class ConversationFragment extends XmppFragment
                         SendButtonAction action = (SendButtonAction) tag;
                         switch (action) {
                             case TAKE_PHOTO:
+                                attachFile(ATTACHMENT_CHOICE_TAKE_PHOTO);
+                                break;
                             case RECORD_VIDEO:
+                                attachFile(ATTACHMENT_CHOICE_RECORD_VIDEO);
+                                break;
                             case SEND_LOCATION:
+                                attachFile(ATTACHMENT_CHOICE_LOCATION);
+                                break;
                             case RECORD_VOICE:
+                                attachFile(ATTACHMENT_CHOICE_RECORD_VOICE);
+                                break;
+                            case CHOOSE_ATTACHMENT:
+                                attachFile(ATTACHMENT_CHOICE_CHOOSE_FILE);
+                                break;
                             case CHOOSE_PICTURE:
                                 attachFile(action.toChoice());
                                 break;
