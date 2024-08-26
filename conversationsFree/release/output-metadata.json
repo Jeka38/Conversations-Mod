@@ -20,26 +20,13 @@
       "filters": [
         {
           "filterType": "ABI",
-          "value": "x86"
+          "value": "arm64-v8a"
         }
       ],
       "attributes": [],
-      "versionCode": 4211502,
+      "versionCode": 4211504,
       "versionName": "2.3.1",
-      "outputFile": "Conversations-Classic-Mod-2.3.1-conversations-free-x86-release.apk"
-    },
-    {
-      "type": "ONE_OF_MANY",
-      "filters": [
-        {
-          "filterType": "ABI",
-          "value": "x86_64"
-        }
-      ],
-      "attributes": [],
-      "versionCode": 4211503,
-      "versionName": "2.3.1",
-      "outputFile": "Conversations-Classic-Mod-2.3.1-conversations-free-x86_64-release.apk"
+      "outputFile": "Conversations-Classic-Mod-2.3.1-conversations-free-arm64-v8a-release.apk"
     },
     {
       "type": "ONE_OF_MANY",
@@ -59,13 +46,26 @@
       "filters": [
         {
           "filterType": "ABI",
-          "value": "arm64-v8a"
+          "value": "x86_64"
         }
       ],
       "attributes": [],
-      "versionCode": 4211504,
+      "versionCode": 4211503,
       "versionName": "2.3.1",
-      "outputFile": "Conversations-Classic-Mod-2.3.1-conversations-free-arm64-v8a-release.apk"
+      "outputFile": "Conversations-Classic-Mod-2.3.1-conversations-free-x86_64-release.apk"
+    },
+    {
+      "type": "ONE_OF_MANY",
+      "filters": [
+        {
+          "filterType": "ABI",
+          "value": "x86"
+        }
+      ],
+      "attributes": [],
+      "versionCode": 4211502,
+      "versionName": "2.3.1",
+      "outputFile": "Conversations-Classic-Mod-2.3.1-conversations-free-x86-release.apk"
     }
   ],
   "elementType": "File"

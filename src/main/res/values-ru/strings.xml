@@ -295,7 +295,7 @@
     <string name="pref_expert_options_other">Другие</string>
     <string name="toast_message_omemo_fingerprint">OMEMO-отпечаток скопирован в буфер обмена</string>
     <string name="conference_banned">Вы заблокированы в этой конференции</string>
-    <string name="conference_members_only">Эта конференция — только для участников</string>
+    <string name="conference_members_only">Канал только для зарегистрированых участников</string>
     <string name="conference_resource_constraint">Ресурсное ограничение</string>
     <string name="conference_kicked">Вас выгнали из этой конференции</string>
     <string name="conference_shutdown">Конференция была остановлена</string>

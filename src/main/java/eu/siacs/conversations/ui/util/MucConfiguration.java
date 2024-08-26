@@ -46,17 +46,20 @@ public class MucConfiguration {
                 names = new String[]{
                         context.getString(R.string.non_anonymous),
                         context.getString(R.string.allow_participants_to_edit_subject),
-                        context.getString(R.string.moderated)
+                        context.getString(R.string.moderated),
+                        context.getString(R.string.conference_members_only)
                 };
                 values = new boolean[]{
                         mucOptions.nonanonymous(),
                         mucOptions.participantsCanChangeSubject(),
-                        mucOptions.moderated()
+                        mucOptions.moderated(),
+                        mucOptions.membersOnly()
                 };
                 options = new Option[]{
                         new Option("muc#roomconfig_whois", "anyone", "moderators"),
                         new Option("muc#roomconfig_changesubject"),
-                        new Option("muc#roomconfig_moderatedroom")
+                        new Option("muc#roomconfig_moderatedroom"),
+                        new Option("muc#roomconfig_membersonly")
                 };
             } else {
                 names = new String[]{
