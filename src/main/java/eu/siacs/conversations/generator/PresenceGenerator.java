@@ -77,7 +77,7 @@ public class PresenceGenerator extends AbstractGenerator {
             Element cap = packet.addChild("c",
                     "http://jabber.org/protocol/caps");
             cap.setAttribute("hash", "sha-1");
-            cap.setAttribute("node", "https://dev.narayana.im/narayana/Conversations-Classic");
+            cap.setAttribute("node", "https://github.com/Jeka38/Conversations-Classic-Mod");
             cap.setAttribute("ver", capHash);
         }
         return packet;

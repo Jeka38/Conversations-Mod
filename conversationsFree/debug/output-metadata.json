@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "eu.siacs.conversations.classic_mod",
+  "applicationId": "eu.siacs.conversations.mod",
   "variantName": "conversationsFreeDebug",
   "elements": [
     {
@@ -13,7 +13,7 @@
       "attributes": [],
       "versionCode": 4211500,
       "versionName": "2.3.1",
-      "outputFile": "Conversations-Classic-Mod-2.3.1-conversations-free-universal-debug.apk"
+      "outputFile": "Conversations-Mod-2.3.1-conversations-free-universal-debug.apk"
     },
     {
       "type": "ONE_OF_MANY",
@@ -26,7 +26,7 @@
       "attributes": [],
       "versionCode": 4211501,
       "versionName": "2.3.1",
-      "outputFile": "Conversations-Classic-Mod-2.3.1-conversations-free-armeabi-v7a-debug.apk"
+      "outputFile": "Conversations-Mod-2.3.1-conversations-free-armeabi-v7a-debug.apk"
     },
     {
       "type": "ONE_OF_MANY",
@@ -39,7 +39,7 @@
       "attributes": [],
       "versionCode": 4211504,
       "versionName": "2.3.1",
-      "outputFile": "Conversations-Classic-Mod-2.3.1-conversations-free-arm64-v8a-debug.apk"
+      "outputFile": "Conversations-Mod-2.3.1-conversations-free-arm64-v8a-debug.apk"
     },
     {
       "type": "ONE_OF_MANY",
@@ -52,7 +52,7 @@
       "attributes": [],
       "versionCode": 4211502,
       "versionName": "2.3.1",
-      "outputFile": "Conversations-Classic-Mod-2.3.1-conversations-free-x86-debug.apk"
+      "outputFile": "Conversations-Mod-2.3.1-conversations-free-x86-debug.apk"
     },
     {
       "type": "ONE_OF_MANY",
@@ -65,7 +65,7 @@
       "attributes": [],
       "versionCode": 4211503,
       "versionName": "2.3.1",
-      "outputFile": "Conversations-Classic-Mod-2.3.1-conversations-free-x86_64-debug.apk"
+      "outputFile": "Conversations-Mod-2.3.1-conversations-free-x86_64-debug.apk"
     }
   ],
   "elementType": "File"
