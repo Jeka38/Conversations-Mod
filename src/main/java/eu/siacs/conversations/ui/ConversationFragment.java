@@ -53,6 +53,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
@@ -1469,6 +1470,7 @@ public class ConversationFragment extends XmppFragment
         super.onCreateOptionsMenu(menu, menuInflater);
     }
 
+    @SuppressLint("ResourceType")
     @Override
     public View onCreateView(
             final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -1484,6 +1486,7 @@ public class ConversationFragment extends XmppFragment
 
         // Добавление слушателя для кнопки эмодзи
         binding.emojiButton.setOnClickListener(v -> {
+            v.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.scale_animation)); // анимация кнопки emoji
             emojiPopup.toggle(); // Открывает или закрывает Emojipicker
         });
 
@@ -1515,6 +1518,8 @@ public class ConversationFragment extends XmppFragment
 
         binding.textSendButton.setOnClickListener(this.mSendButtonListener);
         binding.contextPreviewCancel.setOnClickListener((v) -> {
+            v.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.scale_animation)); // анимация кнопки emoji
+
             setupReply(null);
         });
 
@@ -3790,7 +3795,7 @@ public class ConversationFragment extends XmppFragment
             Drawable image = AppCompatResources.getDrawable(getContext(), imageResource);
 
             // Remove any background or tint from the button
-            this.binding.textSendButton.setBackground(null); // Removes any background
+        //    this.binding.textSendButton.setBackground(null); // Removes any background
             this.binding.textSendButton.setBackgroundTintList(null); // Ensures no tint is applied
 
             this.binding.textSendButton.setImageDrawable(image); // Set the button's image as usual
