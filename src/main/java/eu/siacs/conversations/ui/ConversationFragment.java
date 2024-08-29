@@ -79,6 +79,9 @@ import androidx.viewpager.widget.PagerAdapter;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
+import com.vanniktech.emoji.EmojiManager;
+import com.vanniktech.emoji.EmojiPopup;
+import com.vanniktech.emoji.google.GoogleEmojiProvider;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -1473,6 +1476,17 @@ public class ConversationFragment extends XmppFragment
                 DataBindingUtil.inflate(inflater, R.layout.fragment_conversation, container, false);
         binding.getRoot().setOnClickListener(null); // TODO why the fuck did we do this?
 
+        // Установка EmojiProvider через EmojiManager
+        EmojiManager.install(new GoogleEmojiProvider());
+
+        // Инициализация Emojipopup
+        EmojiPopup emojiPopup = EmojiPopup.Builder.fromRootView(binding.getRoot()).build(binding.textinput);
+
+        // Добавление слушателя для кнопки эмодзи
+        binding.emojiButton.setOnClickListener(v -> {
+            emojiPopup.toggle(); // Открывает или закрывает Emojipicker
+        });
+
         binding.textinput.addTextChangedListener(
                 new StylingHelper.MessageEditorStyler(binding.textinput));
 
@@ -1567,6 +1581,8 @@ public class ConversationFragment extends XmppFragment
 
         return binding.getRoot();
     }
+
+
 
     @Override
     public void onDestroyView() {
