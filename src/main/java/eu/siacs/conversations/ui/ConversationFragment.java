@@ -1518,7 +1518,7 @@ public class ConversationFragment extends XmppFragment
 
         binding.textSendButton.setOnClickListener(this.mSendButtonListener);
         binding.contextPreviewCancel.setOnClickListener((v) -> {
-            v.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.scale_animation)); // анимация кнопки emoji
+            v.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.scale_animation)); // анимация кнопки send
 
             setupReply(null);
         });
