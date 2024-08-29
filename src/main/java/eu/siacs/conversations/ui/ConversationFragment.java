@@ -1487,11 +1487,21 @@ public class ConversationFragment extends XmppFragment
             emojiPopup.toggle(); // Открывает или закрывает Emojipicker
         });
 
+        // Обработчик клика по строке ввода текста
+        binding.textinput.setOnClickListener(v -> {
+            if (emojiPopup.isShowing()) {
+                emojiPopup.dismiss(); // Закрыть Emojipicker
+            }
+            binding.textinput.requestFocus(); // Фокус на текстовом поле для открытия клавиатуры
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(binding.textinput, InputMethodManager.SHOW_IMPLICIT); // Открытие клавиатуры
+        });
+
         binding.textinput.addTextChangedListener(
                 new StylingHelper.MessageEditorStyler(binding.textinput));
 
         binding.textinput.setOnEditorActionListener(mEditorActionListener);
-        binding.textinput.setRichContentListener(new String[] {"image/*"}, mEditorContentListener);
+        binding.textinput.setRichContentListener(new String[]{"image/*"}, mEditorContentListener);
 
         // Добавление слушателя для долгого нажатия
         binding.textSendButton.setOnLongClickListener(v -> {
@@ -1581,6 +1591,7 @@ public class ConversationFragment extends XmppFragment
 
         return binding.getRoot();
     }
+
 
 
 
