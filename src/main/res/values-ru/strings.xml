@@ -4,7 +4,7 @@
     <string name="action_add">Новая беседа</string>
     <string name="action_accounts">Управление аккаунтами</string>
     <string name="action_account">Управление аккаунтом</string>
-    <string name="action_end_conversation">Закрыть беседу</string>
+    <string name="action_end_conversation">Покинуть конференцию</string>
     <string name="action_contact_details">Сведения о контакте</string>
     <string name="action_muc_details">Подробности конференции</string>
     <string name="channel_details">Сведения о канале</string>
@@ -381,14 +381,14 @@
     <string name="grant_membership">Предоставить права участника</string>
     <string name="remove_membership">Снять права участника</string>
     <string name="grant_admin_privileges">Назначить администратором</string>
-    <string name="remove_admin_privileges">Снять административные права</string>
-    <string name="grant_owner_privileges">Назначить администратором</string>
+    <string name="remove_admin_privileges">Снять права администора</string>
+    <string name="grant_owner_privileges">Назначить овнером</string>
     <string name="remove_owner_privileges">Снять права администратора</string>
     <string name="remove_from_room">Убрать из конференции</string>
     <string name="remove_from_channel">Исключить</string>
     <string name="could_not_change_affiliation">Не удалось изменить принадлежность %s</string>
     <string name="ban_from_conference">Заблокировать в конференции</string>
-    <string name="ban_from_channel">Заблокировать</string>
+    <string name="ban_from_channel">Бан</string>
     <string name="removing_from_public_conference">Вы пытаетесь исключить %s из публичного канала. Единственный способ это сделать — навсегда заблокировать этого пользователя. </string>
     <string name="ban_now">Заблокировать</string>
     <string name="could_not_change_role">Не удалось сменить роль %s</string>
