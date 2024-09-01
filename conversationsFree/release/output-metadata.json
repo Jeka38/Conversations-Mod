@@ -20,19 +20,6 @@
       "filters": [
         {
           "filterType": "ABI",
-          "value": "armeabi-v7a"
-        }
-      ],
-      "attributes": [],
-      "versionCode": 4211501,
-      "versionName": "2.3.1.1",
-      "outputFile": "Conversations-Mod-2.3.1.1-conversations-free-armeabi-v7a-release.apk"
-    },
-    {
-      "type": "ONE_OF_MANY",
-      "filters": [
-        {
-          "filterType": "ABI",
           "value": "arm64-v8a"
         }
       ],
@@ -40,6 +27,19 @@
       "versionCode": 4211504,
       "versionName": "2.3.1.1",
       "outputFile": "Conversations-Mod-2.3.1.1-conversations-free-arm64-v8a-release.apk"
+    },
+    {
+      "type": "ONE_OF_MANY",
+      "filters": [
+        {
+          "filterType": "ABI",
+          "value": "x86_64"
+        }
+      ],
+      "attributes": [],
+      "versionCode": 4211503,
+      "versionName": "2.3.1.1",
+      "outputFile": "Conversations-Mod-2.3.1.1-conversations-free-x86_64-release.apk"
     },
     {
       "type": "ONE_OF_MANY",
@@ -59,39 +59,14 @@
       "filters": [
         {
           "filterType": "ABI",
-          "value": "x86_64"
+          "value": "armeabi-v7a"
         }
       ],
       "attributes": [],
-      "versionCode": 4211503,
+      "versionCode": 4211501,
       "versionName": "2.3.1.1",
-      "outputFile": "Conversations-Mod-2.3.1.1-conversations-free-x86_64-release.apk"
+      "outputFile": "Conversations-Mod-2.3.1.1-conversations-free-armeabi-v7a-release.apk"
     }
   ],
-  "elementType": "File",
-  "baselineProfiles": [
-    {
-      "minApi": 28,
-      "maxApi": 30,
-      "baselineProfiles": [
-        "baselineProfiles/1/Conversations-Mod-2.3.1.1-conversations-free-universal-release.dm",
-        "baselineProfiles/1/Conversations-Mod-2.3.1.1-conversations-free-armeabi-v7a-release.dm",
-        "baselineProfiles/1/Conversations-Mod-2.3.1.1-conversations-free-arm64-v8a-release.dm",
-        "baselineProfiles/1/Conversations-Mod-2.3.1.1-conversations-free-x86-release.dm",
-        "baselineProfiles/1/Conversations-Mod-2.3.1.1-conversations-free-x86_64-release.dm"
-      ]
-    },
-    {
-      "minApi": 31,
-      "maxApi": 2147483647,
-      "baselineProfiles": [
-        "baselineProfiles/0/Conversations-Mod-2.3.1.1-conversations-free-universal-release.dm",
-        "baselineProfiles/0/Conversations-Mod-2.3.1.1-conversations-free-armeabi-v7a-release.dm",
-        "baselineProfiles/0/Conversations-Mod-2.3.1.1-conversations-free-arm64-v8a-release.dm",
-        "baselineProfiles/0/Conversations-Mod-2.3.1.1-conversations-free-x86-release.dm",
-        "baselineProfiles/0/Conversations-Mod-2.3.1.1-conversations-free-x86_64-release.dm"
-      ]
-    }
-  ],
-  "minSdkVersionForDexing": 24
+  "elementType": "File"
 }

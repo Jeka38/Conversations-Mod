@@ -94,7 +94,7 @@ public final class MucDetailsContextMenuHelper {
                         banFromConference.setVisible(true);
                     }
                 } else {
-                    if (!Config.DISABLE_BAN) {
+                    if (!Config.DISABLE_BAN || conversation.getMucOptions().membersOnly()) {
                         removeFromRoom.setVisible(true);
                     }
                 }
@@ -127,18 +127,14 @@ public final class MucDetailsContextMenuHelper {
         }
     }
 
-
     public static boolean onContextItemSelected(MenuItem item, User user, XmppActivity activity) {
         return onContextItemSelected(item, user, activity, null);
     }
 
     public static boolean onContextItemSelected(MenuItem item, User user, XmppActivity activity, final String fingerprint) {
         final Conversation conversation = user.getConversation();
-        final XmppConnectionService.OnAffiliationChanged onAffiliationChanged =
-                activity instanceof XmppConnectionService.OnAffiliationChanged ?
-                        (XmppConnectionService.OnAffiliationChanged) activity : null;
+        final XmppConnectionService.OnAffiliationChanged onAffiliationChanged = activity instanceof XmppConnectionService.OnAffiliationChanged ? (XmppConnectionService.OnAffiliationChanged) activity : null;
         Jid jid = user.getRealJid();
-
         switch (item.getItemId()) {
             case R.id.action_contact_details:
                 final Jid realJid = user.getRealJid();
@@ -148,46 +144,32 @@ public final class MucDetailsContextMenuHelper {
                     activity.switchToContactDetails(contact, fingerprint);
                 }
                 return true;
-
             case R.id.start_conversation:
                 startConversation(user, activity);
                 return true;
-
             case R.id.give_admin_privileges:
-                activity.xmppConnectionService.changeAffiliationInConference(
-                        conversation, jid, MucOptions.Affiliation.ADMIN, onAffiliationChanged);
+                activity.xmppConnectionService.changeAffiliationInConference(conversation, jid, MucOptions.Affiliation.ADMIN, onAffiliationChanged);
                 return true;
-
             case R.id.give_membership:
             case R.id.remove_admin_privileges:
             case R.id.revoke_owner_privileges:
-                activity.xmppConnectionService.changeAffiliationInConference(
-                        conversation, jid, MucOptions.Affiliation.MEMBER, onAffiliationChanged);
+                activity.xmppConnectionService.changeAffiliationInConference(conversation, jid, MucOptions.Affiliation.MEMBER, onAffiliationChanged);
                 return true;
-
             case R.id.give_owner_privileges:
-                activity.xmppConnectionService.changeAffiliationInConference(
-                        conversation, jid, MucOptions.Affiliation.OWNER, onAffiliationChanged);
+                activity.xmppConnectionService.changeAffiliationInConference(conversation, jid, MucOptions.Affiliation.OWNER, onAffiliationChanged);
                 return true;
-
             case R.id.remove_membership:
-                activity.xmppConnectionService.changeAffiliationInConference(
-                        conversation, jid, MucOptions.Affiliation.NONE, onAffiliationChanged);
+                activity.xmppConnectionService.changeAffiliationInConference(conversation, jid, MucOptions.Affiliation.NONE, onAffiliationChanged);
                 return true;
-
             case R.id.remove_from_room:
                 removeFromRoom(user, activity, onAffiliationChanged);
                 return true;
-
             case R.id.ban_from_conference:
-                activity.xmppConnectionService.changeAffiliationInConference(
-                        conversation, jid, MucOptions.Affiliation.OUTCAST, onAffiliationChanged);
+                activity.xmppConnectionService.changeAffiliationInConference(conversation, jid, MucOptions.Affiliation.OUTCAST, onAffiliationChanged);
                 if (user.getRole() != MucOptions.Role.NONE) {
-                    activity.xmppConnectionService.changeRoleInConference(
-                            conversation, user.getName(), MucOptions.Role.NONE);
+                    activity.xmppConnectionService.changeRoleInConference(conversation, user.getName(), MucOptions.Role.NONE);
                 }
                 return true;
-
             case R.id.send_private_message:
                 if (activity instanceof ConversationsActivity) {
                     ConversationFragment conversationFragment = ConversationFragment.get(activity);
@@ -198,7 +180,6 @@ public final class MucDetailsContextMenuHelper {
                 }
                 activity.privateMsgInMuc(conversation, user.getName());
                 return true;
-
             case R.id.invite:
                 if (user.getAffiliation().ranks(MucOptions.Affiliation.MEMBER)) {
                     activity.xmppConnectionService.directInvite(conversation, jid.asBareJid());
@@ -206,25 +187,38 @@ public final class MucDetailsContextMenuHelper {
                     activity.xmppConnectionService.invite(conversation, jid);
                 }
                 return true;
-
             default:
                 return false;
         }
     }
 
-
     private static void removeFromRoom(final User user, XmppActivity activity, XmppConnectionService.OnAffiliationChanged onAffiliationChanged) {
         final Conversation conversation = user.getConversation();
-
-        // Сразу баним пользователя, устанавливая его аффилиацию в OUTCAST
-        activity.xmppConnectionService.changeAffiliationInConference(conversation, user.getRealJid(), MucOptions.Affiliation.OUTCAST, onAffiliationChanged);
-
-        // Если у пользователя ещё есть какая-то роль, сбрасываем её на NONE
-        if (user.getRole() != MucOptions.Role.NONE) {
-            activity.xmppConnectionService.changeRoleInConference(conversation, user.getName(), MucOptions.Role.NONE);
+        if (conversation.getMucOptions().membersOnly()) {
+            activity.xmppConnectionService.changeAffiliationInConference(conversation, user.getRealJid(), MucOptions.Affiliation.NONE, onAffiliationChanged);
+            if (user.getRole() != MucOptions.Role.NONE) {
+                activity.xmppConnectionService.changeRoleInConference(conversation, user.getName(), MucOptions.Role.NONE);
+            }
+        } else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+            builder.setTitle(R.string.ban_from_conference);
+            String jid = user.getRealJid().asBareJid().toString();
+            SpannableString message = new SpannableString(activity.getString(R.string.removing_from_public_conference, jid));
+            int start = message.toString().indexOf(jid);
+            if (start >= 0) {
+                message.setSpan(new TypefaceSpan("monospace"), start, start + jid.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
+            builder.setMessage(message);
+            builder.setNegativeButton(R.string.cancel, null);
+            builder.setPositiveButton(R.string.ban_now, (dialog, which) -> {
+                activity.xmppConnectionService.changeAffiliationInConference(conversation, user.getRealJid(), MucOptions.Affiliation.OUTCAST, onAffiliationChanged);
+                if (user.getRole() != MucOptions.Role.NONE) {
+                    activity.xmppConnectionService.changeRoleInConference(conversation, user.getName(), MucOptions.Role.NONE);
+                }
+            });
+            builder.create().show();
         }
     }
-
 
     private static void startConversation(User user, XmppActivity activity) {
         if (user.getRealJid() != null) {
