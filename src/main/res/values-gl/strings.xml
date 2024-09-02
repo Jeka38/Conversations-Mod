@@ -852,7 +852,6 @@
     <string name="enter_jabber_id">Introducir enderezo XMPP</string>
     <string name="create_group_chat">Crear grupo de conversa</string>
     <string name="join_public_channel">Unirse a canle pública</string>
-    <string name="create_private_group_chat">Crear grupo privado de conversa</string>
     <string name="create_public_channel">Crear canle pública</string>
     <string name="create_dialog_channel_name">Nome da canle</string>
     <string name="xmpp_address">Enderezo XMPP</string>

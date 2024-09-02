@@ -890,7 +890,6 @@
     <string name="enter_jabber_id">Enter XMPP address</string>
     <string name="create_group_chat">Create group chat</string>
     <string name="join_public_channel">Join public channel</string>
-    <string name="create_private_group_chat">Create private group chat</string>
     <string name="create_public_channel">Create public channel</string>
     <string name="create_dialog_channel_name">Channel name</string>
     <string name="xmpp_address">XMPP address</string>

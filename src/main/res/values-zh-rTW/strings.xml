@@ -793,7 +793,6 @@
     <string name="enter_jabber_id">輸入 XMPP 地址</string>
     <string name="create_group_chat">建立群組聊天</string>
     <string name="join_public_channel">加入公用頻道</string>
-    <string name="create_private_group_chat">建立私人群組聊天</string>
     <string name="create_public_channel">建立公用頻道</string>
     <string name="create_dialog_channel_name">頻道名稱</string>
     <string name="xmpp_address">XMPP 位址</string>

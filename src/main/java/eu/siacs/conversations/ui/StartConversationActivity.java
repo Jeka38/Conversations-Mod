@@ -367,9 +367,6 @@ public class StartConversationActivity extends XmppActivity implements XmppConne
                 case R.id.join_public_channel:
                     showJoinConferenceDialog(prefilled);
                     break;
-                case R.id.create_private_group_chat:
-                    showCreatePrivateGroupChatDialog();
-                    break;
                 case R.id.create_public_channel:
                     showPublicChannelDialog();
                     break;

@@ -840,7 +840,6 @@
     <string name="enter_jabber_id">Εισάγετε τη διεύθυνση XMPP</string>
     <string name="create_group_chat">Δημιουργία ομαδικής συζήτησης</string>
     <string name="join_public_channel">Είσοδος σε δημόσιο κανάλι</string>
-    <string name="create_private_group_chat">Δημιουργία συζήτησης ιδιωτικής ομάδας</string>
     <string name="create_public_channel">Δημιουργία δημόσιου καναλιού</string>
     <string name="create_dialog_channel_name">Όνομα καναλιού</string>
     <string name="xmpp_address">Διεύθυνση XMPP</string>

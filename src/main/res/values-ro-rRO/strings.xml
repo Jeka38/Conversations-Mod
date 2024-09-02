@@ -866,7 +866,6 @@
     <string name="enter_jabber_id">Introduceți adresa XMPP</string>
     <string name="create_group_chat">Creează discuție de grup</string>
     <string name="join_public_channel">Alătură-te unui canal public</string>
-    <string name="create_private_group_chat">Creează discuție de grup privată</string>
     <string name="create_public_channel">Creează canal public</string>
     <string name="create_dialog_channel_name">Nume canal</string>
     <string name="xmpp_address">Adresă XMPP</string>

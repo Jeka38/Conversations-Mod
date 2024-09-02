@@ -821,7 +821,6 @@ que l\'administrador del servidor llegeixi els missatges, però pot ser l\'únic
     <string name="enter_jabber_id">Introdueixi la direcció XMPP</string>
     <string name="create_group_chat">Crear un xat de grup</string>
     <string name="join_public_channel">Unir-se a un canal públic</string>
-    <string name="create_private_group_chat">Crear un xat de grup privat</string>
     <string name="create_public_channel">Crear un canal públic</string>
     <string name="create_dialog_channel_name">Nom del canal</string>
     <string name="xmpp_address">Adreça XMPP</string>

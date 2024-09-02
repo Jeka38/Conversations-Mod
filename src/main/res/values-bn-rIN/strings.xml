@@ -111,7 +111,6 @@
     <string name="search_messages">বার্তাগুলির মধ্যে খোঁজা যাক</string>
     <string name="pref_start_search">সরাসরিভাবেই খোঁজা যাক</string>
     <string name="join_public_channel">পাবলিক চ্যানেলে যোগ দেওয়া যাক</string>
-    <string name="create_private_group_chat">ব্যক্তিগত গ্রুপ চ্যাট তৈরি করুন</string>
     <string name="create_public_channel">পাবলিক চ্যানেল তৈরি করা যাক</string>
     <string name="discover_channels">বর্তমান চ্যানেলগুলির মধ্যে থেকে খোঁজা যাক</string>
     </resources>

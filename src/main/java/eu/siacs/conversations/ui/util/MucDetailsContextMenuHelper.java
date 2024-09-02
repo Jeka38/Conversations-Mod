@@ -52,7 +52,6 @@ public final class MucDetailsContextMenuHelper {
 
     public static void configureMucDetailsContextMenu(Activity activity, Menu menu, Conversation conversation, User user) {
         final MucOptions mucOptions = conversation.getMucOptions();
-        final boolean advancedMode = PreferenceManager.getDefaultSharedPreferences(activity).getBoolean("advanced_muc_mode", false);
         final boolean isGroupChat = mucOptions.isPrivateAndNonAnonymous();
         MenuItem sendPrivateMessage = menu.findItem(R.id.send_private_message);
         if (user != null && user.getRealJid() != null) {
@@ -65,10 +64,12 @@ public final class MucDetailsContextMenuHelper {
             MenuItem removeOwnerPrivileges = menu.findItem(R.id.revoke_owner_privileges);
             MenuItem removeAdminPrivileges = menu.findItem(R.id.remove_admin_privileges);
             MenuItem removeFromRoom = menu.findItem(R.id.remove_from_room);
+            removeFromRoom.setTitle(R.string.remove_from_room);
             MenuItem managePermissions = menu.findItem(R.id.manage_permissions);
-            removeFromRoom.setTitle(isGroupChat ? R.string.remove_from_room : R.string.remove_from_channel);
+
             MenuItem banFromConference = menu.findItem(R.id.ban_from_conference);
-            banFromConference.setTitle(isGroupChat ? R.string.ban_from_conference : R.string.ban_from_channel);
+            banFromConference.setTitle(R.string.ban_from_conference);
+
             MenuItem invite = menu.findItem(R.id.invite);
             startConversation.setVisible(true);
             final Contact contact = user.getContact();
@@ -81,42 +82,33 @@ public final class MucDetailsContextMenuHelper {
             }
             boolean managePermissionsVisible = false;
             if ((self.getAffiliation().ranks(MucOptions.Affiliation.ADMIN) && self.getAffiliation().outranks(user.getAffiliation())) || self.getAffiliation() == MucOptions.Affiliation.OWNER) {
-                if (advancedMode) {
-                    if (!user.getAffiliation().ranks(MucOptions.Affiliation.MEMBER)) {
-                        managePermissionsVisible = true;
-                        giveMembership.setVisible(true);
-                    } else if (user.getAffiliation() == MucOptions.Affiliation.MEMBER) {
-                        managePermissionsVisible = true;
-                        removeMembership.setVisible(true);
-                    }
-                    if (!Config.DISABLE_BAN) {
-                        managePermissionsVisible = true;
-                        banFromConference.setVisible(true);
-                    }
-                } else {
-                    if (!Config.DISABLE_BAN || conversation.getMucOptions().membersOnly()) {
-                        removeFromRoom.setVisible(true);
-                    }
+                if (!user.getAffiliation().ranks(MucOptions.Affiliation.MEMBER)) {
+                    managePermissionsVisible = true;
+                    giveMembership.setVisible(true);
+                } else if (user.getAffiliation() == MucOptions.Affiliation.MEMBER) {
+                    managePermissionsVisible = true;
+                    removeMembership.setVisible(true);
                 }
+                if (!Config.DISABLE_BAN) {
+                    managePermissionsVisible = true;
+                    banFromConference.setVisible(true);
+                }
+                removeFromRoom.setVisible(true);
             }
             if (self.getAffiliation().ranks(MucOptions.Affiliation.OWNER)) {
-                if (isGroupChat || advancedMode || user.getAffiliation() == MucOptions.Affiliation.OWNER) {
-                    if (!user.getAffiliation().ranks(MucOptions.Affiliation.OWNER)) {
-                        managePermissionsVisible = true;
-                        giveOwnerPrivileges.setVisible(true);
-                    } else if (user.getAffiliation() == MucOptions.Affiliation.OWNER){
-                        managePermissionsVisible = true;
-                        removeOwnerPrivileges.setVisible(true);
-                    }
+                if (!user.getAffiliation().ranks(MucOptions.Affiliation.OWNER)) {
+                    managePermissionsVisible = true;
+                    giveOwnerPrivileges.setVisible(true);
+                } else if (user.getAffiliation() == MucOptions.Affiliation.OWNER){
+                    managePermissionsVisible = true;
+                    removeOwnerPrivileges.setVisible(true);
                 }
-                if (!isGroupChat || advancedMode || user.getAffiliation() == MucOptions.Affiliation.ADMIN) {
-                    if (!user.getAffiliation().ranks(MucOptions.Affiliation.ADMIN)) {
-                        managePermissionsVisible = true;
-                        giveAdminPrivileges.setVisible(true);
-                    } else if (user.getAffiliation() == MucOptions.Affiliation.ADMIN) {
-                        managePermissionsVisible = true;
-                        removeAdminPrivileges.setVisible(true);
-                    }
+                if (!user.getAffiliation().ranks(MucOptions.Affiliation.ADMIN)) {
+                    managePermissionsVisible = true;
+                    giveAdminPrivileges.setVisible(true);
+                } else if (user.getAffiliation() == MucOptions.Affiliation.ADMIN) {
+                    managePermissionsVisible = true;
+                    removeAdminPrivileges.setVisible(true);
                 }
             }
             managePermissions.setVisible(managePermissionsVisible);
@@ -194,31 +186,11 @@ public final class MucDetailsContextMenuHelper {
 
     private static void removeFromRoom(final User user, XmppActivity activity, XmppConnectionService.OnAffiliationChanged onAffiliationChanged) {
         final Conversation conversation = user.getConversation();
-        if (conversation.getMucOptions().membersOnly()) {
-            activity.xmppConnectionService.changeAffiliationInConference(conversation, user.getRealJid(), MucOptions.Affiliation.NONE, onAffiliationChanged);
-            if (user.getRole() != MucOptions.Role.NONE) {
-                activity.xmppConnectionService.changeRoleInConference(conversation, user.getName(), MucOptions.Role.NONE);
-            }
-        } else {
-            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-            builder.setTitle(R.string.ban_from_conference);
-            String jid = user.getRealJid().asBareJid().toString();
-            SpannableString message = new SpannableString(activity.getString(R.string.removing_from_public_conference, jid));
-            int start = message.toString().indexOf(jid);
-            if (start >= 0) {
-                message.setSpan(new TypefaceSpan("monospace"), start, start + jid.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            }
-            builder.setMessage(message);
-            builder.setNegativeButton(R.string.cancel, null);
-            builder.setPositiveButton(R.string.ban_now, (dialog, which) -> {
-                activity.xmppConnectionService.changeAffiliationInConference(conversation, user.getRealJid(), MucOptions.Affiliation.OUTCAST, onAffiliationChanged);
-                if (user.getRole() != MucOptions.Role.NONE) {
-                    activity.xmppConnectionService.changeRoleInConference(conversation, user.getName(), MucOptions.Role.NONE);
-                }
-            });
-            builder.create().show();
-        }
+
+        // Устанавливаем роль пользователя в конференции на NONE (т.е. кик)
+        activity.xmppConnectionService.changeRoleInConference(conversation, user.getName(), MucOptions.Role.NONE);
     }
+
 
     private static void startConversation(User user, XmppActivity activity) {
         if (user.getRealJid() != null) {

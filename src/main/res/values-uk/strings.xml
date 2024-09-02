@@ -842,7 +842,6 @@
     <string name="enter_jabber_id">Введіть адресу XMPP</string>
     <string name="create_group_chat">Створити групу</string>
     <string name="join_public_channel">Приєднатися до публічного каналу</string>
-    <string name="create_private_group_chat">Створити приватну групу</string>
     <string name="create_public_channel">Створити публічний канал</string>
     <string name="create_dialog_channel_name">Назва каналу</string>
     <string name="xmpp_address">Адреса XMPP</string>

@@ -833,7 +833,6 @@
     <string name="enter_jabber_id">Nhập địa chỉ XMPP</string>
     <string name="create_group_chat">Tạo cuộc trò chuyện nhóm</string>
     <string name="join_public_channel">Tham gia kênh công khai</string>
-    <string name="create_private_group_chat">Tạo cuộc trò chuyện nhóm riêng tư</string>
     <string name="create_public_channel">Tạo kênh công khai</string>
     <string name="create_dialog_channel_name">Tên kênh</string>
     <string name="xmpp_address">Địa chỉ XMPP</string>

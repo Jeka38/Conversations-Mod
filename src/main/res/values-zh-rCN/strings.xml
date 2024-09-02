@@ -866,7 +866,6 @@
     <string name="enter_jabber_id">输入 XMPP 地址</string>
     <string name="create_group_chat">创建群聊</string>
     <string name="join_public_channel">加入公开频道</string>
-    <string name="create_private_group_chat">创建私人群聊</string>
     <string name="create_public_channel">创建公开频道</string>
     <string name="create_dialog_channel_name">频道名</string>
     <string name="xmpp_address">XMPP 地址</string>

@@ -856,7 +856,6 @@
     <string name="enter_jabber_id">XMPP adresini girin</string>
     <string name="create_group_chat">Grup konuşması oluştur</string>
     <string name="join_public_channel">Ortak kanala katıl</string>
-    <string name="create_private_group_chat">Özel grup konuşması oluştur</string>
     <string name="create_public_channel">Ortak kanal oluştur</string>
     <string name="create_dialog_channel_name">Kanal ismi</string>
     <string name="xmpp_address">XMPP adresi</string>

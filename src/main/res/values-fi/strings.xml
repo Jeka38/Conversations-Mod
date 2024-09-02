@@ -789,7 +789,6 @@
     <string name="enter_jabber_id">Syötä XMPP-osoite</string>
     <string name="create_group_chat">Luo ryhmäkeskustelu</string>
     <string name="join_public_channel">Liity julkiselle kanavalle</string>
-    <string name="create_private_group_chat">Luo yksityinen ryhmäkeskustelu</string>
     <string name="create_public_channel">Luo julkinen kanava</string>
     <string name="create_dialog_channel_name">Kanavan nimi</string>
     <string name="xmpp_address">XMPP-osoite</string>

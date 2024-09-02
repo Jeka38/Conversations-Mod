@@ -847,7 +847,6 @@
     <string name="enter_jabber_id">Zadejte XMPP adresu</string>
     <string name="create_group_chat">Vytvořit skupinový chat</string>
     <string name="join_public_channel">Připojit se k veřejnému kanálu</string>
-    <string name="create_private_group_chat">Vytvořit soukromý skupinový chat</string>
     <string name="create_public_channel">Vytvořit veřejný kanál</string>
     <string name="create_dialog_channel_name">Jméno kanálu</string>
     <string name="xmpp_address">Adresa XMPP</string>

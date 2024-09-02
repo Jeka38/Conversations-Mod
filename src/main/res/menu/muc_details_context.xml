@@ -45,14 +45,15 @@
                 android:id="@+id/revoke_owner_privileges"
                 android:title="@string/remove_owner_privileges"
                 android:visible="false" />
-            <item
-                android:id="@+id/ban_from_conference"
-                android:title="@string/ban_from_conference"
-                android:visible="false" />
+
         </menu>
     </item>
     <item
         android:id="@+id/remove_from_room"
         android:title="@string/remove_from_room"
+        android:visible="false" />
+    <item
+        android:id="@+id/ban_from_conference"
+        android:title="@string/ban_from_conference"
         android:visible="false" />
 </menu>

@@ -847,7 +847,6 @@
     <string name="enter_jabber_id">Indtast XMPP-adresse</string>
     <string name="create_group_chat">Opret gruppechat</string>
     <string name="join_public_channel">Deltag i offentlig kanal</string>
-    <string name="create_private_group_chat">Opret privat gruppechat</string>
     <string name="create_public_channel">Opret offentlig kanal</string>
     <string name="create_dialog_channel_name">Kanalnavn</string>
     <string name="xmpp_address">XMPP-adresse</string>

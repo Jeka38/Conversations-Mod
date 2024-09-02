@@ -651,7 +651,6 @@
     <string name="enter_jabber_id">Jepni adresë XMPP</string>
     <string name="create_group_chat">Krijoni fjalosje grupi</string>
     <string name="join_public_channel">Hyni në kanal publik</string>
-    <string name="create_private_group_chat">Krijoni fjalosje private në grup</string>
     <string name="create_public_channel">Krijoni kanal publik</string>
     <string name="create_dialog_channel_name">Emër kanali</string>
     <string name="xmpp_address">Adresë XMPP</string>

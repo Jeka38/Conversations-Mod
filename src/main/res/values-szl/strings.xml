@@ -883,7 +883,6 @@
     <string name="enter_jabber_id">Wkludź adresa XMPP</string>
     <string name="create_group_chat">Nowo grupowo godka</string>
     <string name="join_public_channel">Prziwstōń do publicznego kanału</string>
-    <string name="create_private_group_chat">Nowo prywatno grupowo godka</string>
     <string name="create_public_channel">Nowy publiczny kanał</string>
     <string name="create_dialog_channel_name">Miano ôd kanału</string>
     <string name="xmpp_address">Adresa XMPP</string>

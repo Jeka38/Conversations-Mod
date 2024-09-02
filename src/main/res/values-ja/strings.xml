@@ -833,7 +833,6 @@
     <string name="enter_jabber_id">XMPP アドレスを入力</string>
     <string name="create_group_chat">グループチャットを作成</string>
     <string name="join_public_channel">公開談話室に参加</string>
-    <string name="create_private_group_chat">非公開グループチャットを作成</string>
     <string name="create_public_channel">公開談話室を作成</string>
     <string name="create_dialog_channel_name">談話室名</string>
     <string name="xmpp_address">XMPP アドレス</string>

@@ -805,7 +805,6 @@
     <string name="enter_jabber_id">Adja meg az XMPP-címet</string>
     <string name="create_group_chat">Csoportos csevegés létrehozása</string>
     <string name="join_public_channel">Csatlakozás nyilvános csatornához</string>
-    <string name="create_private_group_chat">Személyes csoportos csevegés létrehozása</string>
     <string name="create_public_channel">Nyilvános csatorna létrehozása</string>
     <string name="create_dialog_channel_name">Csatorna neve</string>
     <string name="xmpp_address">XMPP-cím</string>

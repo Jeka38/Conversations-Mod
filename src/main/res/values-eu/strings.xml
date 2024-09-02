@@ -698,7 +698,6 @@
     <string name="enter_jabber_id">Sartu XMPP helbidea</string>
     <string name="create_group_chat">Talde bat sortu</string>
     <string name="join_public_channel">Kanal publiko batean sartu</string>
-    <string name="create_private_group_chat">Talde pribatu bat sortu</string>
     <string name="create_public_channel">Kanal publiko bat sortu</string>
     <string name="create_dialog_channel_name">Kanalaren izena</string>
     <string name="xmpp_address">XMPP helbidea</string>

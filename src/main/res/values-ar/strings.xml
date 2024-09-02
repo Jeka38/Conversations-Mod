@@ -628,7 +628,6 @@
     <string name="enter_jabber_id">ادخِل عنوان XMPP</string>
     <string name="create_group_chat">أنشئ فريق محادثة</string>
     <string name="join_public_channel">إلتحِق بقناة عمومية</string>
-    <string name="create_private_group_chat">أنشئ فريق محادثة خاص</string>
     <string name="create_public_channel">أنشئ قناة عمومية</string>
     <string name="create_dialog_channel_name">اسم القناة</string>
     <string name="xmpp_address">عنوان XMPP</string>
