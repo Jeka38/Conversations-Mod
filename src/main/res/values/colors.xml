@@ -91,4 +91,8 @@
 	<color name="primary_override_17_dark">#767676</color>
 	<color name="primary_override_18">#485e68</color>
 	<color name="primary_override_18_dark">#485e68</color>
+
+	<color name="black_perpy">#1E0036</color>
+	<color name="custom_theme_accent">@color/black_perpy</color>
+
 </resources>

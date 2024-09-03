@@ -940,7 +940,7 @@
     <string name="only_one_call_at_a_time">Нельзя одновременно совершать больше одного вызова.</string>
     <string name="return_to_ongoing_call">Вернуться к текущему вызову</string>
     <string name="could_not_switch_camera">Не удалось переключить камеру</string>
-    <string name="add_to_favorites">Прикрепить</string>
+    <string name="add_to_favorites">Закрепить</string>
     <string name="remove_from_favorites">Открепить</string>
     <string name="gpx_track">GPX-трек</string>
     <string name="could_not_correct_message">Не удалось исправить сообщение</string>

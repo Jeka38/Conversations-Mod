@@ -92,26 +92,28 @@
                         android:padding="@dimen/card_padding_regular">
 
                         <RelativeLayout
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="32dp">
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="52dp">
 
                             <eu.siacs.conversations.ui.widget.AvatarView
                                 android:id="@+id/your_photo"
                                 android:layout_width="@dimen/avatar_on_details_screen_size"
                                 android:layout_height="@dimen/avatar_on_details_screen_size"
-                                android:layout_alignParentStart="true"
-                                android:layout_marginEnd="@dimen/avatar_item_distance"
-                                android:layout_alignParentLeft="true"
-                                android:layout_marginRight="@dimen/avatar_item_distance" />
+                                android:layout_centerInParent="true" />
+                        </RelativeLayout>
+
+
+                        <RelativeLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="32dp">
 
                             <LinearLayout
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentTop="true"
-                                android:layout_toEndOf="@+id/your_photo"
-                                android:orientation="vertical"
-                                android:layout_toRightOf="@+id/your_photo">
+                                android:orientation="vertical">
 
                                 <RelativeLayout
                                     android:layout_width="match_parent"
@@ -294,73 +296,6 @@
                             android:layout_gravity="end"
                             android:layout_marginTop="32dp"
                             android:textAppearance="@style/TextAppearance.Conversations.Caption"/>
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/users_wrapper"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/activity_vertical_margin"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:layout_marginRight="@dimen/activity_horizontal_margin"
-                    android:layout_marginTop="@dimen/activity_vertical_margin">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/no_users_hints"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingTop="@dimen/card_padding_regular"
-                            android:paddingEnd="@dimen/card_padding_regular"
-                            android:paddingStart="@dimen/card_padding_regular"
-                            android:text="@string/no_users_hint_channel"
-                            android:textAppearance="@style/TextAppearance.Conversations.Body2"/>
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/users"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:paddingEnd="@dimen/card_padding_regular"
-                            android:paddingStart="@dimen/card_padding_regular"
-                            android:paddingTop="@dimen/card_padding_regular"
-                            android:paddingBottom="@dimen/card_padding_list"
-                            android:layout_marginStart="-2dp"
-                            android:layout_marginEnd="-2dp"/>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal"
-                            android:layout_gravity="end">
-
-                            <Button
-                                android:id="@+id/invite"
-                                style="@style/Widget.Conversations.Button.Borderless"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:minWidth="0dp"
-                                android:paddingLeft="16dp"
-                                android:paddingRight="16dp"
-                                android:text="@string/invite"
-                                android:textColor="?attr/colorAccent" />
-
-                            <Button
-                                android:id="@+id/show_users"
-                                style="@style/Widget.Conversations.Button.Borderless"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:minWidth="0dp"
-                                android:paddingLeft="16dp"
-                                android:paddingRight="16dp"
-                                tools:text="View n Participants"
-                                android:textColor="?attr/colorAccent" />
-                        </LinearLayout>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 

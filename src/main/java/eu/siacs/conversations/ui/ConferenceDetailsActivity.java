@@ -232,15 +232,15 @@ public class ConferenceDetailsActivity extends XmppActivity implements OnConvers
         this.mMediaAdapter = new MediaAdapter(this, R.dimen.media_size);
         this.mUserPreviewAdapter = new UserPreviewAdapter();
         this.binding.media.setAdapter(mMediaAdapter);
-        this.binding.users.setAdapter(mUserPreviewAdapter);
+//        this.binding.users.setAdapter(mUserPreviewAdapter);
         GridManager.setupLayoutManager(this, this.binding.media, R.dimen.media_size);
-        GridManager.setupLayoutManager(this, this.binding.users, R.dimen.media_size);
-        this.binding.invite.setOnClickListener(v -> inviteToConversation(mConversation));
-        this.binding.showUsers.setOnClickListener(v -> {
-            Intent intent = new Intent(this, MucUsersActivity.class);
-            intent.putExtra("uuid", mConversation.getUuid());
-            startActivity(intent);
-        });
+//        GridManager.setupLayoutManager(this, this.binding.users, R.dimen.media_size);
+//        this.binding.invite.setOnClickListener(v -> inviteToConversation(mConversation));
+//        this.binding.showUsers.setOnClickListener(v -> {
+//            Intent intent = new Intent(this, MucUsersActivity.class);
+//            intent.putExtra("uuid", mConversation.getUuid());
+//            startActivity(intent);
+//        });
     }
 
     @Override
@@ -588,7 +588,7 @@ public class ConferenceDetailsActivity extends XmppActivity implements OnConvers
         }
         this.binding.mucYourNick.setText(mucOptions.getActualNick());
         if (mucOptions.online()) {
-            this.binding.usersWrapper.setVisibility(View.VISIBLE);
+//            this.binding.usersWrapper.setVisibility(View.VISIBLE);
             this.binding.mucInfoMore.setVisibility(this.mAdvancedMode ? View.VISIBLE : View.GONE);
             this.binding.mucRole.setVisibility(View.VISIBLE);
             this.binding.mucRole.setText(getStatus(self));
@@ -612,7 +612,7 @@ public class ConferenceDetailsActivity extends XmppActivity implements OnConvers
                 this.binding.changeConferenceButton.setVisibility(View.INVISIBLE);
             }
         } else {
-            this.binding.usersWrapper.setVisibility(View.GONE);
+//            this.binding.usersWrapper.setVisibility(View.GONE);
             this.binding.mucInfoMore.setVisibility(View.GONE);
             this.binding.mucSettings.setVisibility(View.GONE);
         }
@@ -652,17 +652,17 @@ public class ConferenceDetailsActivity extends XmppActivity implements OnConvers
                 }
             }
         });
-        this.mUserPreviewAdapter.submitList(MucOptions.sub(users, GridManager.getCurrentColumnCount(binding.users)));
-        this.binding.invite.setVisibility(mucOptions.canInvite() ? View.VISIBLE : View.GONE);
-        this.binding.showUsers.setVisibility(users.size() > 0 ? View.VISIBLE : View.GONE);
-        this.binding.showUsers.setText(getResources().getQuantityString(R.plurals.view_users, users.size(), users.size()));
-        this.binding.usersWrapper.setVisibility(users.size() > 0 || mucOptions.canInvite() ? View.VISIBLE : View.GONE);
-        if (users.size() == 0) {
-            this.binding.noUsersHints.setText(mucOptions.isPrivateAndNonAnonymous() ? R.string.no_users_hint_group_chat : R.string.no_users_hint_channel);
-            this.binding.noUsersHints.setVisibility(View.VISIBLE);
-        } else {
-            this.binding.noUsersHints.setVisibility(View.GONE);
-        }
+//        this.mUserPreviewAdapter.submitList(MucOptions.sub(users, GridManager.getCurrentColumnCount(binding.users)));
+//        this.binding.invite.setVisibility(mucOptions.canInvite() ? View.VISIBLE : View.GONE);
+//        this.binding.showUsers.setVisibility(users.size() > 0 ? View.VISIBLE : View.GONE);
+//        this.binding.showUsers.setText(getResources().getQuantityString(R.plurals.view_users, users.size(), users.size()));
+//        this.binding.usersWrapper.setVisibility(users.size() > 0 || mucOptions.canInvite() ? View.VISIBLE : View.GONE);
+//        if (users.size() == 0) {
+//            this.binding.noUsersHints.setText(mucOptions.isPrivateAndNonAnonymous() ? R.string.no_users_hint_group_chat : R.string.no_users_hint_channel);
+//            this.binding.noUsersHints.setVisibility(View.VISIBLE);
+//        } else {
+//            this.binding.noUsersHints.setVisibility(View.GONE);
+//        }
 
         if (bookmark == null) {
             binding.tags.setVisibility(View.GONE);
