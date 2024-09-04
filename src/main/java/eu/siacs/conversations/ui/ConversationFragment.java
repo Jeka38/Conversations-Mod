@@ -24,7 +24,6 @@ import android.content.Intent;
 import android.content.IntentSender.SendIntentException;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -1481,8 +1480,12 @@ public class ConversationFragment extends XmppFragment
         // Установка EmojiProvider через EmojiManager
         EmojiManager.install(new GoogleEmojiProvider());
 
-        // Инициализация Emojipopup
-        EmojiPopup emojiPopup = EmojiPopup.Builder.fromRootView(binding.getRoot()).build(binding.textinput);
+        // Инициализация Emojipopup с кастомными настройками
+        EmojiPopup emojiPopup = EmojiPopup.Builder.fromRootView(binding.getRoot())
+                .setIconColor(ContextCompat.getColor(getContext(), R.color.white))   // Непрозрачный цвет иконок
+                .setBackgroundColor(ContextCompat.getColor(getContext(), R.color.grey800))  // Непрозрачный цвет фона
+                .build(binding.textinput);
+
 
         // Добавление слушателя для кнопки эмодзи
         binding.emojiButton.setOnClickListener(v -> {
