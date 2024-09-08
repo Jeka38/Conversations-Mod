@@ -1242,23 +1242,12 @@ public class MessageAdapter extends ArrayAdapter<Message> implements DraggableLi
                     viewHolder.encryption.setText(CryptoHelper.encryptionTypeToText(message.getEncryption()));
                 }
             }
-
-        }
-
-        if (type == SENT) {
-            int bubble;
-            bubble = activity.getThemeResource(R.attr.message_bubble_sent, R.drawable.message_bubble_sent);
-            viewHolder.message_box.setBackgroundResource(bubble);
-        }
-
-        ////////////////////////
-        String messageBody = message.getBody();
-        if (messageBody != null) {
-            if (messageBody.startsWith("https")) {
+///////////////////////////
+            String messageBody = message.getBody();
+            if (messageBody != null && messageBody.startsWith("https")) {
                 try {
                     URI uri = new URI(messageBody);
-
-                    if (isImageUri(uri)) { // Проверяем, является ли ссылка изображением
+                    if (isImageUri(uri)) { // проверяем, является ли ссылка изображением
                         // Загрузка изображения с помощью Glide
                         Glide.with(activity)
                                 .load(uri.toString())
@@ -1271,47 +1260,91 @@ public class MessageAdapter extends ArrayAdapter<Message> implements DraggableLi
                         if (viewHolder.messageBody != null) {
                             viewHolder.messageBody.setVisibility(View.GONE);
                         }
-                    } else { // Если это не изображение
-                        if (viewHolder.image != null) {
-                            viewHolder.image.setVisibility(View.GONE);
-                        }
+                    } else {
+                        // Это не изображение, просто показываем текст сообщения
                         if (viewHolder.messageBody != null) {
                             viewHolder.messageBody.setText(messageBody);
                             viewHolder.messageBody.setVisibility(View.VISIBLE);
                         }
+                        if (viewHolder.image != null) {
+                            viewHolder.image.setVisibility(View.GONE);
+                        }
                     }
                 } catch (URISyntaxException e) {
                     // Неправильный URI, показываем сообщение как текст
-//                    if (viewHolder.image != null) {
-//                        viewHolder.image.setVisibility(View.GONE);
-//                    }
                     if (viewHolder.messageBody != null) {
                         viewHolder.messageBody.setText(messageBody);
-                        viewHolder.messageBody.setVisibility(View.GONE);
+                        viewHolder.messageBody.setVisibility(View.VISIBLE);
+                    }
+                    if (viewHolder.image != null) {
+                        viewHolder.image.setVisibility(View.GONE);
                     }
                 }
             } else {
-                // Если сообщение содержит текст без ссылки
+                // Нет ссылки, показываем текст сообщения
                 if (viewHolder.image != null) {
-                    viewHolder.image.setVisibility(View.VISIBLE);
+                    viewHolder.image.setVisibility(View.GONE);
                 }
+                if (viewHolder.messageBody != null) {
+                    viewHolder.messageBody.setVisibility(View.VISIBLE);
+                }
+            }
+//////////////////////////
+        }
+
+        if (type == SENT) {
+            int bubble;
+            bubble = activity.getThemeResource(R.attr.message_bubble_sent, R.drawable.message_bubble_sent);
+            viewHolder.message_box.setBackgroundResource(bubble);
+        }
+///////////////////////////
+        String messageBody = message.getBody();
+        if (messageBody != null && messageBody.startsWith("https")) {
+            try {
+                URI uri = new URI(messageBody);
+                if (isImageUri(uri)) { // проверяем, является ли ссылка изображением
+                    // Загрузка изображения с помощью Glide
+                    Glide.with(activity)
+                            .load(uri.toString())
+                            .into(viewHolder.image);
+
+                    // Делаем видимым ImageView и скрываем текст сообщения
+                    if (viewHolder.image != null) {
+                        viewHolder.image.setVisibility(View.VISIBLE);
+                    }
+                    if (viewHolder.messageBody != null) {
+                        viewHolder.messageBody.setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    // Это не изображение, просто показываем текст сообщения
+                    if (viewHolder.messageBody != null) {
+                        viewHolder.messageBody.setText(messageBody);
+                        viewHolder.messageBody.setVisibility(View.VISIBLE);
+                    }
+                    if (viewHolder.image != null) {
+                        viewHolder.image.setVisibility(View.VISIBLE);
+                    }
+                }
+            } catch (URISyntaxException e) {
+                // Неправильный URI, показываем сообщение как текст
                 if (viewHolder.messageBody != null) {
                     viewHolder.messageBody.setText(messageBody);
                     viewHolder.messageBody.setVisibility(View.VISIBLE);
                 }
+                if (viewHolder.image != null) {
+                    viewHolder.image.setVisibility(View.VISIBLE);
+                }
             }
         } else {
-            // Если тело сообщения пустое, скрываем оба элемента
+            // Нет ссылки, показываем текст сообщения
             if (viewHolder.image != null) {
                 viewHolder.image.setVisibility(View.GONE);
             }
             if (viewHolder.messageBody != null) {
-                viewHolder.messageBody.setVisibility(View.GONE);
+                viewHolder.messageBody.setVisibility(View.VISIBLE);
             }
         }
-
-        /////////////////////
-
+//////////////////////////
         displayStatus(viewHolder, message, type, darkBackground);
 
         if (viewHolder.contact_picture != null)
