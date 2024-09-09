@@ -508,10 +508,6 @@ public class MessageParser extends AbstractParser implements OnMessagePacketRece
             }
         }
 
-        if (nextCounterpart != null && mXmppConnectionService.checkIsArchived(account, counterpart.asBareJid(), nextCounterpart)) {
-            return;
-        }
-
         if ((body != null || pgpEncrypted != null || (axolotlEncrypted != null && axolotlEncrypted.hasChild("payload")) || oobUrl != null) && !isMucStatusMessage) {
             final Conversation conversation = mXmppConnectionService.findOrCreateConversation(account, counterpart.asBareJid(), null, conversationIsProbablyMuc, nextCounterpart != null, false, nextCounterpart);
             final boolean conversationMultiMode = conversation.getMode() == Conversation.MODE_MULTI;
