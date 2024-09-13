@@ -12,7 +12,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:foreground="@color/grey700_25"
-            android:scaleType="centerCrop" />
+            android:scaleType="fitCenter" />
 
         <eu.siacs.conversations.ui.widget.TabLayout
             android:visibility="gone"
@@ -126,7 +126,6 @@
                             android:id="@+id/context_preview_image"
                             android:layout_width="32dp"
                             android:layout_height="32dp"
-                            android:scaleType="centerCrop"
                             android:layout_marginEnd="16dp"/>
 
                         <ImageView

@@ -818,7 +818,7 @@ public class MessageAdapter extends ArrayAdapter<Message> implements DraggableLi
         viewHolder.audioPlayer.setVisibility(View.GONE);
         viewHolder.download_button.setVisibility(View.VISIBLE);
         viewHolder.download_button.setText(activity.getString(R.string.open_x_file, UIHelper.getFileDescriptionString(activity, message)));
-        viewHolder.download_button.setOnClickListener(v -> openDownloadable(message));
+       // viewHolder.download_button.setOnClickListener(v -> openDownloadable(message));
 
         maybeShowReply(message.getReplyMessage(), true, viewHolder, message, darkBackground);
     }
@@ -1230,13 +1230,13 @@ public class MessageAdapter extends ArrayAdapter<Message> implements DraggableLi
                     if (isImageUri(uri)) {
                         // Загрузка изображения с помощью Glide
                         if (viewHolder.image != null) {
+                            viewHolder.image.setScaleType(ImageView.ScaleType.FIT_CENTER);
                             Glide.with(activity)
                                     .load(sanitizedUrl)
                                     .into(viewHolder.image);
 
                             // Make image visible after loading
                             viewHolder.image.setVisibility(View.VISIBLE);
-                            viewHolder.image.setOnClickListener(v -> openDownloadable(message));
                         } else {
                             Log.e("ImageView Error", "ImageView is null");
                         }
@@ -1255,7 +1255,7 @@ public class MessageAdapter extends ArrayAdapter<Message> implements DraggableLi
             viewHolder.message_box.setBackgroundResource(bubble);
 
             if (messageBody != null && messageBody.startsWith("https")) {
-                String sanitizedUrl = messageBody.replaceFirst(" ", "")
+                String sanitizedUrl = messageBody.replaceFirst("^\\s+", "")
                         .replaceAll("(\\.(jpg|png|gif|jpeg|mp3|mp4|wav|flac))[^\\s]*$", "$1");
 
                 Log.d("Sanitized URL", sanitizedUrl);
@@ -1267,13 +1267,13 @@ public class MessageAdapter extends ArrayAdapter<Message> implements DraggableLi
                     if (isImageUri(uri)) {
                         // Загрузка изображения с помощью Glide
                         if (viewHolder.image != null) {
+                            viewHolder.image.setScaleType(ImageView.ScaleType.FIT_CENTER);
                             Glide.with(activity)
                                     .load(sanitizedUrl)
                                     .into(viewHolder.image);
 
                             // Make image visible after loading
                             viewHolder.image.setVisibility(View.VISIBLE);
-                            viewHolder.image.setOnClickListener(v -> openDownloadable(message));
                         } else {
                             Log.e("ImageView Error", "ImageView is null");
                         }
@@ -1310,7 +1310,8 @@ public class MessageAdapter extends ArrayAdapter<Message> implements DraggableLi
     // Функция для проверки, является ли URI изображением
     private boolean isImageUri(URI uri) {
         String path = uri.getPath();
-        return path.endsWith(".jpg") || path.endsWith(".png") || path.endsWith(".jpeg") || path.endsWith(".gif");
+        return path.endsWith(".jpg") || path.endsWith(".png")
+            || path.endsWith(".jpeg") || path.endsWith(".gif");
     }
 
     private void promptOpenKeychainInstall(View view) {
