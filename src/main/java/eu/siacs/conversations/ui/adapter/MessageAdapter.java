@@ -1218,21 +1218,19 @@ public class MessageAdapter extends ArrayAdapter<Message> implements DraggableLi
                 }
             }
 
+            messageBody = messageBody.replaceFirst("^\\s+", "");
             if (messageBody != null && messageBody.startsWith("https")) {
-                String sanitizedUrl = messageBody.replaceAll("^\\s+", "").replaceAll("[|]", "");
-
-                Log.d("Sanitized URL", sanitizedUrl);
-
+                Log.d("Sanitized URL", messageBody);
                 try {
                     // Проверяем, является ли ссылка изображением
-                    URI uri = URI.create(sanitizedUrl);
+                    URI uri = URI.create(messageBody);
 
                     if (isImageUri(uri)) {
                         // Загрузка изображения с помощью Glide
                         if (viewHolder.image != null) {
                             viewHolder.image.setScaleType(ImageView.ScaleType.FIT_CENTER);
                             Glide.with(activity)
-                                    .load(sanitizedUrl)
+                                    .load(messageBody)
                                     .into(viewHolder.image);
 
                             // Make image visible after loading
@@ -1244,7 +1242,7 @@ public class MessageAdapter extends ArrayAdapter<Message> implements DraggableLi
                         Log.e("URI Error", "Provided URL is not a valid image URI");
                     }
                 } catch (IllegalArgumentException e) {
-                    Log.e("URL Parsing Error", "Invalid URL: " + sanitizedUrl, e);
+                    Log.e("URL Parsing Error", "Invalid URL: " + messageBody, e);
                 }
             }
         }
@@ -1253,25 +1251,19 @@ public class MessageAdapter extends ArrayAdapter<Message> implements DraggableLi
             int bubble;
             bubble = activity.getThemeResource(R.attr.message_bubble_sent, R.drawable.message_bubble_sent);
             viewHolder.message_box.setBackgroundResource(bubble);
-
+            messageBody = messageBody.replaceFirst("^\\s+", "");
             if (messageBody != null && messageBody.startsWith("https")) {
-                String sanitizedUrl = messageBody.replaceFirst("^\\s+", "")
-                        .replaceAll("(\\.(jpg|png|gif|jpeg|mp3|mp4|wav|flac))[^\\s]*$", "$1");
-
-                Log.d("Sanitized URL", sanitizedUrl);
-
+                Log.d("Sanitized URL", messageBody);
                 try {
                     // Проверяем, является ли ссылка изображением
-                    URI uri = URI.create(sanitizedUrl);
-
+                    URI uri = URI.create(messageBody);
                     if (isImageUri(uri)) {
                         // Загрузка изображения с помощью Glide
                         if (viewHolder.image != null) {
                             viewHolder.image.setScaleType(ImageView.ScaleType.FIT_CENTER);
                             Glide.with(activity)
-                                    .load(sanitizedUrl)
+                                    .load(messageBody)
                                     .into(viewHolder.image);
-
                             // Make image visible after loading
                             viewHolder.image.setVisibility(View.VISIBLE);
                         } else {
@@ -1281,7 +1273,7 @@ public class MessageAdapter extends ArrayAdapter<Message> implements DraggableLi
                         Log.e("URI Error", "Provided URL is not a valid image URI");
                     }
                 } catch (IllegalArgumentException e) {
-                    Log.e("URL Parsing Error", "Invalid URL: " + sanitizedUrl, e);
+                    Log.e("URL Parsing Error", "Invalid URL: " + messageBody, e);
                 }
             }
         }
