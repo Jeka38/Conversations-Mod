@@ -21,6 +21,7 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -703,29 +704,6 @@ public class MessageAdapter extends ArrayAdapter<Message> implements DraggableLi
                     body.setSpan(new StyleSpan(Typeface.BOLD_ITALIC), 0, nick.length(),
                             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
-            } else {
-                /*String privateMarker;
-                if (message.getStatus() <= Message.STATUS_RECEIVED) {
-                    privateMarker = activity.getString(R.string.private_message);
-                } else {
-                    Jid cp = message.getCounterpart();
-                    privateMarker = activity.getString(R.string.private_message_to, Strings.nullToEmpty(cp == null ? null : cp.getResource()));
-                }
-                body.insert(0, privateMarker);
-                int privateMarkerIndex = privateMarker.length();
-                if (startsWithQuote) {
-                    body.insert(privateMarkerIndex, "\n\n");
-                    body.setSpan(new DividerSpan(false), privateMarkerIndex, privateMarkerIndex + 2,
-                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                } else {
-                    body.insert(privateMarkerIndex, " ");
-                }
-                body.setSpan(new ForegroundColorSpan(getMessageTextColor(darkBackground, false)), 0, privateMarkerIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                body.setSpan(new StyleSpan(Typeface.BOLD), 0, privateMarkerIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                if (hasMeCommand) {
-                    body.setSpan(new StyleSpan(Typeface.BOLD_ITALIC), privateMarkerIndex + 1,
-                            privateMarkerIndex + 1 + nick.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                }*/
             }
             if (message.getConversation().getMode() == Conversation.MODE_MULTI && message.getStatus() == Message.STATUS_RECEIVED) {
                 if (message.getConversation() instanceof Conversation) {
@@ -895,7 +873,7 @@ public class MessageAdapter extends ArrayAdapter<Message> implements DraggableLi
         layoutParams.setMargins(0, (int) (metrics.density * 4), 0, (int) (metrics.density * 4));
         viewHolder.image.setLayoutParams(layoutParams);
         activity.loadBitmap(message, viewHolder.image);
-        viewHolder.image.setOnClickListener(v -> openDownloadable(message));
+      //  viewHolder.image.setOnClickListener(v -> openDownloadable(message));
     }
 
     private void toggleWhisperInfo(ViewHolder viewHolder, final Message message, final boolean darkBackground) {
@@ -935,11 +913,6 @@ public class MessageAdapter extends ArrayAdapter<Message> implements DraggableLi
         }
     }
 
-    private boolean isImageUri(URI uri) {
-        String path = uri.getPath().toLowerCase();
-        return path.endsWith(".jpg") || path.endsWith(".jpeg") || path.endsWith(".png") || path.endsWith(".gif");
-    }
-
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         final Message message = getItem(position);
@@ -948,6 +921,8 @@ public class MessageAdapter extends ArrayAdapter<Message> implements DraggableLi
         final Conversational conversation = message.getConversation();
         final Account account = conversation.getAccount();
         final int type = getItemViewType(position);
+
+        String messageBody = message.getBody();
 
         ViewHolder viewHolder;
         if (view == null) {
@@ -1242,124 +1217,79 @@ public class MessageAdapter extends ArrayAdapter<Message> implements DraggableLi
                     viewHolder.encryption.setText(CryptoHelper.encryptionTypeToText(message.getEncryption()));
                 }
             }
-///////////////////////////
-            String messageBody = message.getBody();
-            if (messageBody != null && messageBody.startsWith("https")) {
-                try {
-                    URI uri = new URI(messageBody);
-                    if (isImageUri(uri)) { // проверяем, является ли ссылка изображением
-                        // Загрузка изображения с помощью Glide
-                        Glide.with(activity)
-                                .load(uri.toString())
-                                .into(viewHolder.image);
 
-                        // Делаем видимым ImageView и скрываем текст сообщения
+            if (messageBody != null && messageBody.startsWith("https")) {
+                String sanitizedUrl = messageBody.replaceAll("^\\s+", "").replaceAll("[|]", "");
+
+                Log.d("Sanitized URL", sanitizedUrl);
+
+                try {
+                    // Проверяем, является ли ссылка изображением
+                    URI uri = URI.create(sanitizedUrl);
+
+                    if (isImageUri(uri)) {
+                        // Загрузка изображения с помощью Glide
                         if (viewHolder.image != null) {
+                            Glide.with(activity)
+                                    .load(sanitizedUrl)
+                                    .into(viewHolder.image);
+
+                            // Make image visible after loading
                             viewHolder.image.setVisibility(View.VISIBLE);
-                        }
-                        if (viewHolder.messageBody != null) {
-                            viewHolder.messageBody.setVisibility(View.GONE);
+                            viewHolder.image.setOnClickListener(v -> openDownloadable(message));
+                        } else {
+                            Log.e("ImageView Error", "ImageView is null");
                         }
                     } else {
-                        // Это не изображение, просто показываем текст сообщения
-                        if (viewHolder.messageBody != null) {
-                            viewHolder.messageBody.setText(messageBody);
-                            viewHolder.messageBody.setVisibility(View.VISIBLE);
-                        }
-                        if (viewHolder.image != null) {
-                            viewHolder.image.setVisibility(View.GONE);
-                        }
+                        Log.e("URI Error", "Provided URL is not a valid image URI");
                     }
-                } catch (URISyntaxException e) {
-                    // Неправильный URI, показываем сообщение как текст
-                    if (viewHolder.messageBody != null) {
-                        viewHolder.messageBody.setText(messageBody);
-                        viewHolder.messageBody.setVisibility(View.VISIBLE);
-                    }
-                    if (viewHolder.image != null) {
-                        viewHolder.image.setVisibility(View.GONE);
-                    }
-                }
-            } else {
-                // Нет ссылки, показываем текст сообщения
-                if (viewHolder.image != null) {
-                    viewHolder.image.setVisibility(View.GONE);
-                }
-                if (viewHolder.messageBody != null) {
-                    viewHolder.messageBody.setVisibility(View.VISIBLE);
+                } catch (IllegalArgumentException e) {
+                    Log.e("URL Parsing Error", "Invalid URL: " + sanitizedUrl, e);
                 }
             }
-//////////////////////////
         }
 
         if (type == SENT) {
             int bubble;
             bubble = activity.getThemeResource(R.attr.message_bubble_sent, R.drawable.message_bubble_sent);
             viewHolder.message_box.setBackgroundResource(bubble);
-        }
-///////////////////////////
-        String messageBody = message.getBody();
-        if (messageBody != null && messageBody.startsWith("https")) {
-            try {
-                URI uri = new URI(messageBody);
-                if (isImageUri(uri)) { // проверяем, является ли ссылка изображением
-                    // Загрузка изображения с помощью Glide
-                    Glide.with(activity)
-                            .load(uri.toString())
-                            .into(viewHolder.image);
 
-                    // Делаем видимым ImageView и скрываем текст сообщения
-                    if (viewHolder.image != null) {
-                        viewHolder.image.setVisibility(View.VISIBLE);
+            if (messageBody != null && messageBody.startsWith("https")) {
+                String sanitizedUrl = messageBody.replaceFirst(" ", "")
+                        .replaceAll("(\\.(jpg|png|gif|jpeg|mp3|mp4|wav|flac))[^\\s]*$", "$1");
+
+                Log.d("Sanitized URL", sanitizedUrl);
+
+                try {
+                    // Проверяем, является ли ссылка изображением
+                    URI uri = URI.create(sanitizedUrl);
+
+                    if (isImageUri(uri)) {
+                        // Загрузка изображения с помощью Glide
+                        if (viewHolder.image != null) {
+                            Glide.with(activity)
+                                    .load(sanitizedUrl)
+                                    .into(viewHolder.image);
+
+                            // Make image visible after loading
+                            viewHolder.image.setVisibility(View.VISIBLE);
+                            viewHolder.image.setOnClickListener(v -> openDownloadable(message));
+                        } else {
+                            Log.e("ImageView Error", "ImageView is null");
+                        }
+                    } else {
+                        Log.e("URI Error", "Provided URL is not a valid image URI");
                     }
-                    if (viewHolder.messageBody != null) {
-                        viewHolder.messageBody.setVisibility(View.VISIBLE);
-                    }
-                } else {
-                    // Это не изображение, просто показываем текст сообщения
-                    if (viewHolder.messageBody != null) {
-                        viewHolder.messageBody.setText(messageBody);
-                        viewHolder.messageBody.setVisibility(View.VISIBLE);
-                    }
-                    if (viewHolder.image != null) {
-                        viewHolder.image.setVisibility(View.VISIBLE);
-                    }
+                } catch (IllegalArgumentException e) {
+                    Log.e("URL Parsing Error", "Invalid URL: " + sanitizedUrl, e);
                 }
-            } catch (URISyntaxException e) {
-                // Неправильный URI, показываем сообщение как текст
-                if (viewHolder.messageBody != null) {
-                    viewHolder.messageBody.setText(messageBody);
-                    viewHolder.messageBody.setVisibility(View.VISIBLE);
-                }
-                if (viewHolder.image != null) {
-                    viewHolder.image.setVisibility(View.VISIBLE);
-                }
-            }
-        } else {
-            // Нет ссылки, показываем текст сообщения
-            if (viewHolder.image != null) {
-                viewHolder.image.setVisibility(View.GONE);
-            }
-            if (viewHolder.messageBody != null) {
-                viewHolder.messageBody.setVisibility(View.VISIBLE);
             }
         }
-//////////////////////////
+
         displayStatus(viewHolder, message, type, darkBackground);
 
         if (viewHolder.contact_picture != null)
             viewHolder.contact_picture.setVisibility(mergeableWithNext ? View.INVISIBLE : View.VISIBLE);
-       // if (viewHolder.edit_indicator != null)
-        //    viewHolder.edit_indicator.setVisibility(mergeableWithNext ? View.GONE : viewHolder.edit_indicator.getVisibility());
-        // if (viewHolder.encryption != null)
-        //    viewHolder.encryption.setVisibility(mergeableWithNext ? View.GONE : viewHolder.encryption.getVisibility());
-       // if (viewHolder.indicator != null)
-       //     viewHolder.indicator.setVisibility(mergeableWithNext ? View.GONE : viewHolder.indicator.getVisibility());
-       // if (viewHolder.time != null)
-       //     viewHolder.time.setVisibility(mergeableWithNext ? View.GONE : View.VISIBLE);
-       // if (viewHolder.indicatorReceived != null)
-         //   viewHolder.indicatorReceived.setVisibility(mergeableWithNext ? View.GONE : viewHolder.indicatorReceived.getVisibility());
-
         if (mergeableWithPrev && mergeableWithNext) {
             view.setPadding(view.getPaddingLeft(), dpToPx(4), view.getPaddingRight(), dpToPx(4));
         } else if (mergeableWithPrev) {
@@ -1375,6 +1305,12 @@ public class MessageAdapter extends ArrayAdapter<Message> implements DraggableLi
 
     private static int dpToPx(int dp) {
         return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
+    }
+
+    // Функция для проверки, является ли URI изображением
+    private boolean isImageUri(URI uri) {
+        String path = uri.getPath();
+        return path.endsWith(".jpg") || path.endsWith(".png") || path.endsWith(".jpeg") || path.endsWith(".gif");
     }
 
     private void promptOpenKeychainInstall(View view) {
