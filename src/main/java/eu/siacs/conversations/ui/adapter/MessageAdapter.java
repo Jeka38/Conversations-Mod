@@ -1219,18 +1219,24 @@ public class MessageAdapter extends ArrayAdapter<Message> implements DraggableLi
             }
 
             messageBody = messageBody.replaceFirst("^\\s+", "");
-            if (messageBody != null && messageBody.startsWith("https")) {
-                Log.d("Sanitized URL", messageBody);
+            Pattern urlPattern = Pattern.compile("(https?://\\S+)");
+            Matcher matcher = urlPattern.matcher(messageBody);
+
+            if (matcher.find()) {
+                // Извлекаем URL
+                String extractedUrl = matcher.group(1);
+
+                Log.d("Sanitized URL", extractedUrl);
                 try {
                     // Проверяем, является ли ссылка изображением
-                    URI uri = URI.create(messageBody);
+                    URI uri = URI.create(extractedUrl);
 
                     if (isImageUri(uri)) {
                         // Загрузка изображения с помощью Glide
                         if (viewHolder.image != null) {
                             viewHolder.image.setScaleType(ImageView.ScaleType.FIT_CENTER);
                             Glide.with(activity)
-                                    .load(messageBody)
+                                    .load(extractedUrl)
                                     .into(viewHolder.image);
 
                             // Make image visible after loading
@@ -1242,8 +1248,11 @@ public class MessageAdapter extends ArrayAdapter<Message> implements DraggableLi
                         Log.e("URI Error", "Provided URL is not a valid image URI");
                     }
                 } catch (IllegalArgumentException e) {
-                    Log.e("URL Parsing Error", "Invalid URL: " + messageBody, e);
+                    Log.e("URL Parsing Error", "Invalid URL: " + extractedUrl, e);
                 }
+            } else {
+                // Нет ссылки в тексте, обрабатываем текстовое сообщение
+                Log.d("Text Message", "Message contains no URL: " + messageBody);
             }
         }
 
@@ -1252,18 +1261,26 @@ public class MessageAdapter extends ArrayAdapter<Message> implements DraggableLi
             bubble = activity.getThemeResource(R.attr.message_bubble_sent, R.drawable.message_bubble_sent);
             viewHolder.message_box.setBackgroundResource(bubble);
             messageBody = messageBody.replaceFirst("^\\s+", "");
-            if (messageBody != null && messageBody.startsWith("https")) {
-                Log.d("Sanitized URL", messageBody);
+            Pattern urlPattern = Pattern.compile("(https?://\\S+)");
+            Matcher matcher = urlPattern.matcher(messageBody);
+
+            if (matcher.find()) {
+                // Извлекаем URL
+                String extractedUrl = matcher.group(1);
+
+                Log.d("Sanitized URL", extractedUrl);
                 try {
                     // Проверяем, является ли ссылка изображением
-                    URI uri = URI.create(messageBody);
+                    URI uri = URI.create(extractedUrl);
+
                     if (isImageUri(uri)) {
                         // Загрузка изображения с помощью Glide
                         if (viewHolder.image != null) {
                             viewHolder.image.setScaleType(ImageView.ScaleType.FIT_CENTER);
                             Glide.with(activity)
-                                    .load(messageBody)
+                                    .load(extractedUrl)
                                     .into(viewHolder.image);
+
                             // Make image visible after loading
                             viewHolder.image.setVisibility(View.VISIBLE);
                         } else {
@@ -1273,8 +1290,11 @@ public class MessageAdapter extends ArrayAdapter<Message> implements DraggableLi
                         Log.e("URI Error", "Provided URL is not a valid image URI");
                     }
                 } catch (IllegalArgumentException e) {
-                    Log.e("URL Parsing Error", "Invalid URL: " + messageBody, e);
+                    Log.e("URL Parsing Error", "Invalid URL: " + extractedUrl, e);
                 }
+            } else {
+                // Нет ссылки в тексте, обрабатываем текстовое сообщение
+                Log.d("Text Message", "Message contains no URL: " + messageBody);
             }
         }
 
