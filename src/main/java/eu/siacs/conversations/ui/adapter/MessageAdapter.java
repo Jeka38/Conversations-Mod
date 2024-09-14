@@ -501,7 +501,7 @@ public class MessageAdapter extends ArrayAdapter<Message> implements DraggableLi
 
 
     private void displayInfoMessage(ViewHolder viewHolder, CharSequence text, boolean darkBackground) {
-        viewHolder.download_button.setVisibility(View.GONE);
+//        viewHolder.download_button.setVisibility(View.GONE);
         viewHolder.audioPlayer.setVisibility(View.GONE);
         viewHolder.image.setVisibility(View.GONE);
         viewHolder.messageBody.setVisibility(View.VISIBLE);
@@ -515,7 +515,7 @@ public class MessageAdapter extends ArrayAdapter<Message> implements DraggableLi
     }
 
     private void displayEmojiMessage(final ViewHolder viewHolder, final String body, final boolean darkBackground) {
-        viewHolder.download_button.setVisibility(View.GONE);
+//        viewHolder.download_button.setVisibility(View.GONE);
         viewHolder.audioPlayer.setVisibility(View.GONE);
         viewHolder.image.setVisibility(View.GONE);
         viewHolder.messageBody.setVisibility(View.VISIBLE);
@@ -650,7 +650,7 @@ public class MessageAdapter extends ArrayAdapter<Message> implements DraggableLi
     }
 
     private void displayTextMessage(final ViewHolder viewHolder, final Message message, boolean darkBackground, int type) {
-        viewHolder.download_button.setVisibility(View.GONE);
+//        viewHolder.download_button.setVisibility(View.GONE);
         viewHolder.image.setVisibility(View.GONE);
         viewHolder.audioPlayer.setVisibility(View.GONE);
         viewHolder.messageBody.setVisibility(View.VISIBLE);
@@ -837,7 +837,7 @@ public class MessageAdapter extends ArrayAdapter<Message> implements DraggableLi
     private void displayAudioMessage(ViewHolder viewHolder, Message message, boolean darkBackground) {
         toggleWhisperInfo(viewHolder, message, darkBackground);
         viewHolder.image.setVisibility(View.GONE);
-        viewHolder.download_button.setVisibility(View.GONE);
+//        viewHolder.download_button.setVisibility(View.GONE);
         final RelativeLayout audioPlayer = viewHolder.audioPlayer;
         audioPlayer.setVisibility(View.VISIBLE);
         AudioPlayer.ViewHolder.get(audioPlayer).setDarkBackground(darkBackground);
@@ -848,7 +848,7 @@ public class MessageAdapter extends ArrayAdapter<Message> implements DraggableLi
 
     private void displayMediaPreviewMessage(ViewHolder viewHolder, final Message message, final boolean darkBackground) {
         toggleWhisperInfo(viewHolder, message, darkBackground);
-        viewHolder.download_button.setVisibility(View.GONE);
+        viewHolder.messageBody.setVisibility(View.VISIBLE);
         viewHolder.audioPlayer.setVisibility(View.GONE);
         viewHolder.image.setVisibility(View.VISIBLE);
         maybeShowReply(message.getReplyMessage(), true, viewHolder, message, darkBackground);
@@ -949,7 +949,6 @@ public class MessageAdapter extends ArrayAdapter<Message> implements DraggableLi
                     viewHolder.root = view;
                     viewHolder.message_box = view.findViewById(R.id.message_box);
                     viewHolder.contact_picture = view.findViewById(R.id.message_photo);
-                    viewHolder.download_button = view.findViewById(R.id.download_button);
                     viewHolder.indicator = view.findViewById(R.id.security_indicator);
                     viewHolder.edit_indicator = view.findViewById(R.id.edit_indicator);
                     viewHolder.image = view.findViewById(R.id.message_image);
@@ -966,7 +965,6 @@ public class MessageAdapter extends ArrayAdapter<Message> implements DraggableLi
                     viewHolder.root = view;
                     viewHolder.message_box = view.findViewById(R.id.message_box);
                     viewHolder.contact_picture = view.findViewById(R.id.message_photo);
-                    viewHolder.download_button = view.findViewById(R.id.download_button);
                     viewHolder.indicator = view.findViewById(R.id.security_indicator);
                     viewHolder.edit_indicator = view.findViewById(R.id.edit_indicator);
                     viewHolder.image = view.findViewById(R.id.message_image);
@@ -1167,19 +1165,9 @@ public class MessageAdapter extends ArrayAdapter<Message> implements DraggableLi
                 displayEmojiMessage(viewHolder, message.getBody().trim(), darkBackground);
             } else if (message.treatAsDownloadable()) {
                 try {
-                    final URI uri = new URI(message.getBody());
-                    displayDownloadableMessage(viewHolder,
-                            message,
-                            activity.getString(R.string.check_x_filesize_on_host,
-                                    UIHelper.getFileDescriptionString(activity, message),
-                                    uri.getHost()),
-                            darkBackground);
+                    displayTextMessage(viewHolder, message, darkBackground, type);
                 } catch (Exception e) {
-                    displayDownloadableMessage(viewHolder,
-                            message,
-                            activity.getString(R.string.check_x_filesize,
-                                    UIHelper.getFileDescriptionString(activity, message)),
-                            darkBackground);
+                    displayTextMessage(viewHolder, message, darkBackground, type);
                 }
             } else {
                 displayTextMessage(viewHolder, message, darkBackground, type);
