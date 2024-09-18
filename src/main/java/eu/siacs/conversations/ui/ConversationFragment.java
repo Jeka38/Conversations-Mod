@@ -4417,6 +4417,9 @@ public class ConversationFragment extends XmppFragment
                 popupMenu.setOnMenuItemClickListener(
                         item -> {
                             switch (item.getItemId()) {
+                                case R.id.action_show_avatar:
+                                    activity.ShowAvatarPopup(activity, contact);
+                                    break;
                                 case R.id.action_contact_details:
                                     activity.switchToContactDetails(
                                             message.getContact(), fingerprint);

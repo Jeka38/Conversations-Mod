@@ -11,6 +11,7 @@
     <string name="channel_details">Channel details</string>
     <string name="action_add_account">Add account</string>
     <string name="action_edit_contact">Edit name</string>
+    <string name="show_avatar">Show avatar</string>
     <string name="action_add_phone_book">Add to address book</string>
     <string name="action_delete_contact">Delete from roster</string>
     <string name="action_block_contact">Block contact</string>

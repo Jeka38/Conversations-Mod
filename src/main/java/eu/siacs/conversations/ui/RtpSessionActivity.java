@@ -917,6 +917,30 @@ public class RtpSessionActivity extends XmppActivity
         this.binding.verified.setVisibility(verified ? View.VISIBLE : View.GONE);
     }
 
+    private void updateProfilePicture(final RtpEndUserState state) {
+        updateProfilePicture(state, null);
+    }
+
+    private void updateProfilePicture(final RtpEndUserState state, final Contact contact) {
+        if (state == RtpEndUserState.INCOMING_CALL || state == RtpEndUserState.ACCEPTING_CALL) {
+            final boolean show = getResources().getBoolean(R.bool.show_avatar_incoming_call);
+            if (show) {
+                binding.contactPhoto.setVisibility(View.VISIBLE);
+                if (contact == null) {
+                    AvatarWorkerTask.loadAvatar(
+                            getWith(), binding.contactPhoto, R.dimen.publish_avatar_size);
+                } else {
+                    AvatarWorkerTask.loadAvatar(
+                            contact, binding.contactPhoto, R.dimen.publish_avatar_size);
+                }
+            } else {
+                binding.contactPhoto.setVisibility(View.GONE);
+            }
+        } else {
+            binding.contactPhoto.setVisibility(View.GONE);
+        }
+    }
+
     private void updateIncomingCallScreen(final RtpEndUserState state) {
         updateIncomingCallScreen(state, null);
     }

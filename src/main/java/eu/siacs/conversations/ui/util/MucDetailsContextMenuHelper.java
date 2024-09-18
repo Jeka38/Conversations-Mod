@@ -54,6 +54,8 @@ public final class MucDetailsContextMenuHelper {
         final MucOptions mucOptions = conversation.getMucOptions();
         final boolean isGroupChat = mucOptions.isPrivateAndNonAnonymous();
         MenuItem sendPrivateMessage = menu.findItem(R.id.send_private_message);
+        MenuItem showAvatar = menu.findItem(R.id.action_show_avatar);
+        showAvatar.setVisible(user != null);
         if (user != null && user.getRealJid() != null) {
             MenuItem showContactDetails = menu.findItem(R.id.action_contact_details);
             MenuItem startConversation = menu.findItem(R.id.start_conversation);
@@ -128,6 +130,9 @@ public final class MucDetailsContextMenuHelper {
         final XmppConnectionService.OnAffiliationChanged onAffiliationChanged = activity instanceof XmppConnectionService.OnAffiliationChanged ? (XmppConnectionService.OnAffiliationChanged) activity : null;
         Jid jid = user.getRealJid();
         switch (item.getItemId()) {
+            case R.id.action_show_avatar:
+                activity.ShowAvatarPopup(activity, user);
+                return true;
             case R.id.action_contact_details:
                 final Jid realJid = user.getRealJid();
                 final Account account = conversation.getAccount();

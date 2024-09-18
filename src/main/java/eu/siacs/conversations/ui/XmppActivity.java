@@ -3,6 +3,7 @@ package eu.siacs.conversations.ui;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.ActivityNotFoundException;
 import android.content.ClipData;
@@ -38,9 +39,13 @@ import android.text.Html;
 import android.text.InputType;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -71,6 +76,7 @@ import eu.siacs.conversations.entities.Account;
 import eu.siacs.conversations.entities.Contact;
 import eu.siacs.conversations.entities.Conversation;
 import eu.siacs.conversations.entities.Message;
+import eu.siacs.conversations.entities.MucOptions;
 import eu.siacs.conversations.entities.Presences;
 import eu.siacs.conversations.services.AvatarService;
 import eu.siacs.conversations.services.BarcodeProvider;
@@ -78,6 +84,7 @@ import eu.siacs.conversations.services.EmojiInitializationService;
 import eu.siacs.conversations.services.QuickConversationsService;
 import eu.siacs.conversations.services.XmppConnectionService;
 import eu.siacs.conversations.services.XmppConnectionService.XmppConnectionBinder;
+import eu.siacs.conversations.ui.util.AvatarWorkerTask;
 import eu.siacs.conversations.ui.util.MenuDoubleTabUtil;
 import eu.siacs.conversations.ui.util.PresenceSelector;
 import eu.siacs.conversations.ui.util.SettingsUtils;
@@ -1014,6 +1021,46 @@ public abstract class XmppActivity extends ActionBarActivity {
             }
         }
     }
+
+    public AlertDialog AvatarPopup;
+
+    public void ShowAvatarPopup(final Activity activity, final AvatarService.Avatarable user) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        AvatarPopup = builder.create();
+        final LayoutInflater inflater = activity.getLayoutInflater(); // Приведение к getLayoutInflater()
+        final View dialogLayout = inflater.inflate(R.layout.avatar_dialog, null);
+        AvatarPopup.setView(dialogLayout);
+        AvatarPopup.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        // Получаем ImageView для аватара
+        final ImageView image = dialogLayout.findViewById(R.id.avatar);
+
+        // Устанавливаем фиксированные размеры для ImageView
+        int fixedSize = (int) activity.getResources().getDimension(R.dimen.avatar_big);  // Предполагаем, что размер прописан в ресурсах
+        ViewGroup.LayoutParams params = image.getLayoutParams();
+        params.width = fixedSize;
+        params.height = fixedSize;
+        image.setLayoutParams(params);  // Применяем размеры
+
+        // Загрузка аватара в ImageView
+        AvatarWorkerTask.loadAvatar(user, image, R.dimen.avatar_big);
+
+        // Устанавливаем фиксированные размеры для окна диалога
+        AvatarPopup.setOnShowListener(dialog -> {
+            if (AvatarPopup.getWindow() != null) {
+                AvatarPopup.getWindow().setLayout(fixedSize, fixedSize);  // Применяем те же размеры для окна
+            }
+        });
+
+        AvatarPopup.show();
+    }
+
+    private void hideAvatarPopup() {
+        if (AvatarPopup != null && AvatarPopup.isShowing()) {
+            AvatarPopup.cancel();
+        }
+    }
+
 
     protected interface OnValueEdited {
         String onValueEdited(String value);

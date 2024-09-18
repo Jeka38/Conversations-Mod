@@ -78,7 +78,7 @@
     <dimen name="activity_margin">16dp</dimen>
 
     <dimen name="colorpicker_hue_width">30dp</dimen>
-
+    <dimen name="avatar_big">350dp</dimen>
     <dimen name="avatar_corners_radius">8dp</dimen>
     <dimen name="presence_indicator_size">12dp</dimen>
     <dimen name="presence_indicator_offset">2dp</dimen>
