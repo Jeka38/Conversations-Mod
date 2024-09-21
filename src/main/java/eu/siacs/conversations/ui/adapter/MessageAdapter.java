@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -46,9 +48,14 @@ import androidx.customview.widget.ViewDragHelper;
 import com.bumptech.glide.Glide;
 import com.google.common.base.Strings;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.lang.ref.WeakReference;
+import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
@@ -848,7 +855,7 @@ public class MessageAdapter extends ArrayAdapter<Message> implements DraggableLi
 
     private void displayMediaPreviewMessage(ViewHolder viewHolder, final Message message, final boolean darkBackground) {
         toggleWhisperInfo(viewHolder, message, darkBackground);
-        viewHolder.messageBody.setVisibility(View.VISIBLE);
+        viewHolder.messageBody.setVisibility(View.GONE);
         viewHolder.audioPlayer.setVisibility(View.GONE);
         viewHolder.image.setVisibility(View.VISIBLE);
         maybeShowReply(message.getReplyMessage(), true, viewHolder, message, darkBackground);
@@ -1220,17 +1227,23 @@ public class MessageAdapter extends ArrayAdapter<Message> implements DraggableLi
                     URI uri = URI.create(extractedUrl);
 
                     if (isImageUri(uri)) {
-                        // Загрузка изображения с помощью Glide
-                        if (viewHolder.image != null) {
-                            viewHolder.image.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                            Glide.with(activity)
-                                    .load(extractedUrl)
-                                    .into(viewHolder.image);
+                        // Генерируем имя файла для сохранения на устройстве (можно использовать хэш URL для уникальности)
+                        String fileName = String.valueOf(extractedUrl.hashCode()) + ".jpg";
+                        File imageFile = new File(activity.getFilesDir(), fileName);
 
-                            // Make image visible after loading
-                            viewHolder.image.setVisibility(View.VISIBLE);
+                        if (imageFile.exists()) {
+                            // Если файл существует, загружаем его локально
+                            Log.d("Image Load", "Loading image from local storage: " + imageFile.getAbsolutePath());
+                            Bitmap bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
+                            if (viewHolder.image != null) {
+                                viewHolder.image.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                                viewHolder.image.setImageBitmap(bitmap);
+                                viewHolder.image.setVisibility(View.VISIBLE);
+                            }
                         } else {
-                            Log.e("ImageView Error", "ImageView is null");
+                            // Файл не найден, загружаем изображение с интернета и сохраняем его
+                            Log.d("Image Load", "Downloading and saving image: " + extractedUrl);
+                            downloadAndSaveImage(extractedUrl, imageFile, viewHolder);
                         }
                     } else {
                         Log.e("URI Error", "Provided URL is not a valid image URI");
@@ -1262,17 +1275,23 @@ public class MessageAdapter extends ArrayAdapter<Message> implements DraggableLi
                     URI uri = URI.create(extractedUrl);
 
                     if (isImageUri(uri)) {
-                        // Загрузка изображения с помощью Glide
-                        if (viewHolder.image != null) {
-                            viewHolder.image.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                            Glide.with(activity)
-                                    .load(extractedUrl)
-                                    .into(viewHolder.image);
+                        // Генерируем имя файла для сохранения на устройстве (можно использовать хэш URL для уникальности)
+                        String fileName = String.valueOf(extractedUrl.hashCode()) + ".jpg";
+                        File imageFile = new File(activity.getFilesDir(), fileName);
 
-                            // Make image visible after loading
-                            viewHolder.image.setVisibility(View.VISIBLE);
+                        if (imageFile.exists()) {
+                            // Если файл существует, загружаем его локально
+                            Log.d("Image Load", "Loading image from local storage: " + imageFile.getAbsolutePath());
+                            Bitmap bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
+                            if (viewHolder.image != null) {
+                                viewHolder.image.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                                viewHolder.image.setImageBitmap(bitmap);
+                                viewHolder.image.setVisibility(View.VISIBLE);
+                            }
                         } else {
-                            Log.e("ImageView Error", "ImageView is null");
+                            // Файл не найден, загружаем изображение с интернета и сохраняем его
+                            Log.d("Image Load", "Downloading and saving image: " + extractedUrl);
+                            downloadAndSaveImage(extractedUrl, imageFile, viewHolder);
                         }
                     } else {
                         Log.e("URI Error", "Provided URL is not a valid image URI");
@@ -1307,11 +1326,45 @@ public class MessageAdapter extends ArrayAdapter<Message> implements DraggableLi
         return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
     }
 
+    private void downloadAndSaveImage(String imageUrl, File imageFile, ViewHolder viewHolder) {
+        new Thread(() -> {
+            try {
+                URL url = new URL(imageUrl);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.connect();
+                InputStream inputStream = connection.getInputStream();
+                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+
+                // Сохраняем изображение в локальное хранилище
+                FileOutputStream fos = new FileOutputStream(imageFile);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
+                fos.close();
+
+                // Обновляем ImageView на UI-потоке
+                activity.runOnUiThread(() -> {
+                    if (viewHolder.image != null) {
+                        viewHolder.image.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        viewHolder.image.setImageBitmap(bitmap);
+                        viewHolder.image.setVisibility(View.VISIBLE);
+                    }
+                });
+
+            } catch (Exception e) {
+                Log.e("Image Download Error", "Error downloading or saving image", e);
+            }
+        }).start();
+    }
+
+
     // Функция для проверки, является ли URI изображением
     private boolean isImageUri(URI uri) {
-        String path = uri.getPath();
-        return path.endsWith(".jpg") || path.endsWith(".png")
-            || path.endsWith(".jpeg") || path.endsWith(".gif");
+        String path = uri.getPath().toLowerCase();
+        return path.endsWith(".jpg") || path.endsWith(".jpeg") ||
+                path.endsWith(".png") || path.endsWith(".gif") ||
+                path.endsWith(".bmp") || path.endsWith(".webp") ||
+                path.endsWith(".tiff") || path.endsWith(".tif") ||
+                path.endsWith(".ico") || path.endsWith(".svg");
     }
 
     private void promptOpenKeychainInstall(View view) {
