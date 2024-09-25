@@ -65,7 +65,7 @@ import eu.siacs.conversations.utils.XmppUri;
 import eu.siacs.conversations.xmpp.Jid;
 import me.drakeet.support.toast.ToastCompat;
 
-public class ConferenceDetailsActivity extends XmppActivity implements OnConversationUpdate, OnMucRosterUpdate, XmppConnectionService.OnAffiliationChanged, XmppConnectionService.OnConfigurationPushed, XmppConnectionService.OnRoomDestroy, TextWatcher, OnMediaLoaded {
+public class ConferenceDetailsActivity extends XmppActivity implements OnConversationUpdate, OnMucRosterUpdate, XmppConnectionService.OnAffiliationChanged, XmppConnectionService.OnConfigurationPushed, XmppConnectionService.OnRoomDestroy, TextWatcher {
     public static final String ACTION_VIEW_MUC = "view_muc";
 
     private Conversation mConversation;
@@ -231,9 +231,9 @@ public class ConferenceDetailsActivity extends XmppActivity implements OnConvers
         this.binding.editTags.addTextChangedListener(this);
         this.mMediaAdapter = new MediaAdapter(this, R.dimen.media_size);
         this.mUserPreviewAdapter = new UserPreviewAdapter();
-        this.binding.media.setAdapter(mMediaAdapter);
+//        this.binding.media.setAdapter(mMediaAdapter);
 //        this.binding.users.setAdapter(mUserPreviewAdapter);
-        GridManager.setupLayoutManager(this, this.binding.media, R.dimen.media_size);
+//        GridManager.setupLayoutManager(this, this.binding.media, R.dimen.media_size);
 //        GridManager.setupLayoutManager(this, this.binding.users, R.dimen.media_size);
 //        this.binding.invite.setOnClickListener(v -> inviteToConversation(mConversation));
 //        this.binding.showUsers.setOnClickListener(v -> {
@@ -445,15 +445,15 @@ public class ConferenceDetailsActivity extends XmppActivity implements OnConvers
         return super.onCreateOptionsMenu(menu);
     }
 
-    @Override
-    public void onMediaLoaded(List<Attachment> attachments) {
-        runOnUiThread(() -> {
-            int limit = GridManager.getCurrentColumnCount(binding.media);
-            mMediaAdapter.setAttachments(attachments.subList(0, Math.min(limit, attachments.size())));
-            binding.mediaWrapper.setVisibility(attachments.size() > 0 ? View.VISIBLE : View.GONE);
-        });
-
-    }
+//    @Override
+//    public void onMediaLoaded(List<Attachment> attachments) {
+//        runOnUiThread(() -> {
+//           // int limit = GridManager.getCurrentColumnCount(binding.media);
+//          //  mMediaAdapter.setAttachments(attachments.subList(0, Math.min(limit, attachments.size())));
+//            binding.mediaWrapper.setVisibility(attachments.size() > 0 ? View.VISIBLE : View.GONE);
+//        });
+//
+//    }
 
 
     protected void saveAsBookmark() {
@@ -495,9 +495,9 @@ public class ConferenceDetailsActivity extends XmppActivity implements OnConvers
             this.mConversation = xmppConnectionService.findConversationByUuid(uuid);
             if (this.mConversation != null) {
                 if (Compatibility.hasStoragePermission(this)) {
-                    final int limit = GridManager.getCurrentColumnCount(this.binding.media);
-                    xmppConnectionService.getAttachments(this.mConversation, limit, this);
-                    this.binding.showMedia.setOnClickListener((v) -> MediaBrowserActivity.launch(this, mConversation));
+//                    final int limit = GridManager.getCurrentColumnCount(this.binding.media);
+//                    xmppConnectionService.getAttachments(this.mConversation, limit, this);
+//                    this.binding.showMedia.setOnClickListener((v) -> MediaBrowserActivity.launch(this, mConversation));
                 }
                 updateView();
             }

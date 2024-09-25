@@ -880,7 +880,11 @@ public class MessageAdapter extends ArrayAdapter<Message> implements DraggableLi
         layoutParams.setMargins(0, (int) (metrics.density * 4), 0, (int) (metrics.density * 4));
         viewHolder.image.setLayoutParams(layoutParams);
         activity.loadBitmap(message, viewHolder.image);
-      //  viewHolder.image.setOnClickListener(v -> openDownloadable(message));
+        viewHolder.image.setOnClickListener(v -> {
+            openDownloadable(message);
+            activity.loadBitmap(message, viewHolder.image);  // Повторная загрузка изображения после действия
+        });
+
     }
 
     private void toggleWhisperInfo(ViewHolder viewHolder, final Message message, final boolean darkBackground) {
@@ -1228,7 +1232,7 @@ public class MessageAdapter extends ArrayAdapter<Message> implements DraggableLi
 
                     if (isImageUri(uri)) {
                         // Генерируем имя файла для сохранения на устройстве (можно использовать хэш URL для уникальности)
-                        String fileName = String.valueOf(extractedUrl.hashCode()) + ".jpg";
+                        String fileName = extractedUrl.hashCode() + ".jpg";
                         File imageFile = new File(activity.getFilesDir(), fileName);
 
                         if (imageFile.exists()) {
@@ -1276,7 +1280,7 @@ public class MessageAdapter extends ArrayAdapter<Message> implements DraggableLi
 
                     if (isImageUri(uri)) {
                         // Генерируем имя файла для сохранения на устройстве (можно использовать хэш URL для уникальности)
-                        String fileName = String.valueOf(extractedUrl.hashCode()) + ".jpg";
+                        String fileName = extractedUrl.hashCode() + ".jpg";
                         File imageFile = new File(activity.getFilesDir(), fileName);
 
                         if (imageFile.exists()) {
@@ -1338,7 +1342,6 @@ public class MessageAdapter extends ArrayAdapter<Message> implements DraggableLi
                 // Сохраняем изображение в локальное хранилище
                 FileOutputStream fos = new FileOutputStream(imageFile);
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
                 fos.close();
 
                 // Обновляем ImageView на UI-потоке
