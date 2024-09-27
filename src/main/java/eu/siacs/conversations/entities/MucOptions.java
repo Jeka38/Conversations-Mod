@@ -401,21 +401,6 @@ public class MucOptions {
         return subset;
     }
 
-    public static List<User> sub(List<User> users, int max) {
-        ArrayList<User> subset = new ArrayList<>();
-        HashSet<Jid> jids = new HashSet<>();
-        for (User user : users) {
-            jids.add(user.getAccount().getJid().asBareJid());
-            if (user.getRealJid() == null || (user.getRealJid().getLocal() != null && jids.add(user.getRealJid()))) {
-                subset.add(user);
-            }
-            if (subset.size() >= max) {
-                break;
-            }
-        }
-        return subset;
-    }
-
     public int getUserCount() {
         synchronized (users) {
             return users.size();
