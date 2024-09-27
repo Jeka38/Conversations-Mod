@@ -114,7 +114,7 @@ public final class MucDetailsContextMenuHelper {
                 }
             }
             managePermissions.setVisible(managePermissionsVisible);
-            sendPrivateMessage.setVisible(!isGroupChat && mucOptions.allowPm() && user.getRole().ranks(MucOptions.Role.VISITOR));
+            sendPrivateMessage.setVisible(!isGroupChat && mucOptions.allowPm());
         } else {
             sendPrivateMessage.setVisible(true);
             sendPrivateMessage.setEnabled(user != null && mucOptions.allowPm() && user.getRole().ranks(MucOptions.Role.VISITOR));

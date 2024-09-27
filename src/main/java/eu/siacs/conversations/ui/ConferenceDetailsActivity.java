@@ -70,7 +70,6 @@ public class ConferenceDetailsActivity extends XmppActivity implements OnConvers
 
     private Conversation mConversation;
     private ActivityMucDetailsBinding binding;
-    private MediaAdapter mMediaAdapter;
     private UserPreviewAdapter mUserPreviewAdapter;
     private String uuid = null;
 
@@ -229,18 +228,8 @@ public class ConferenceDetailsActivity extends XmppActivity implements OnConvers
         this.binding.mucEditSubject.addTextChangedListener(this);
         this.binding.mucEditSubject.addTextChangedListener(new StylingHelper.MessageEditorStyler(this.binding.mucEditSubject));
         this.binding.editTags.addTextChangedListener(this);
-        this.mMediaAdapter = new MediaAdapter(this, R.dimen.media_size);
         this.mUserPreviewAdapter = new UserPreviewAdapter();
-//        this.binding.media.setAdapter(mMediaAdapter);
-//        this.binding.users.setAdapter(mUserPreviewAdapter);
-//        GridManager.setupLayoutManager(this, this.binding.media, R.dimen.media_size);
-//        GridManager.setupLayoutManager(this, this.binding.users, R.dimen.media_size);
-//        this.binding.invite.setOnClickListener(v -> inviteToConversation(mConversation));
-//        this.binding.showUsers.setOnClickListener(v -> {
-//            Intent intent = new Intent(this, MucUsersActivity.class);
-//            intent.putExtra("uuid", mConversation.getUuid());
-//            startActivity(intent);
-//        });
+
     }
 
     @Override
